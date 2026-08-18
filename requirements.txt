@@ -1,5 +1,4 @@
 google-play-scraper
-praw
 pandas
 anthropic
 streamlit
