@@ -1,0 +1,9 @@
+google-play-scraper
+praw
+pandas
+anthropic
+streamlit
+plotly
+scikit-learn
+python-dotenv
+google-api-python-client
