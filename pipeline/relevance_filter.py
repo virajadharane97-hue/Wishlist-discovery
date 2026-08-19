@@ -12,28 +12,37 @@ from google.genai import types
 from google.genai.errors import APIError, ClientError
 
 INPUT_FILE = os.path.join("data", "raw_all.csv")
-CHECKPOINT_FILE = os.path.join("data", "checkpoint_relevance.csv")
-CLEAN_FILE = os.path.join("data", "clean.csv")
-REJECTED_FILE = os.path.join("data", "rejected.csv")
+CHECKPOINT_FILE = os.path.join("data", "checkpoint_relevance_v2.csv")
+CLEAN_FILE = os.path.join("data", "clean_v2.csv")
+REJECTED_FILE = os.path.join("data", "rejected_v2.csv")
 
-BATCH_SIZE = 40
+BATCH_SIZE = 20
 MODEL_NAME = "gemini-3.5-flash-lite"
 
-SYSTEM_INSTRUCTION = """You are classifying text for relevance to a research study on why shoppers save fashion items but do not buy them.
+SYSTEM_INSTRUCTION = """You are classifying text for a study on why shoppers save fashion items but do not buy them. You are looking ONLY for text where someone is deciding, hesitating, or seeking information BEFORE a purchase.
 
-For each numbered comment, answer YES or NO to this question:
-Does this text discuss choosing, saving, delaying, comparing, or deciding on a fashion purchase?
+Answer YES only if the text shows one of these:
+- Uncertainty or a question about size, fit, fabric, colour, or length that is unresolved
+- Comparing two or more specific products or platforms in order to choose between them
+- Saving, wishlisting, or postponing a purchase, or discussing items saved and not bought
+- Asking someone else for an opinion before buying
+- Seeking information in order to decide whether to buy
+- Explicitly describing a purchase not yet made
 
-Answer YES if the comment discusses: sizing or fit uncertainty, fabric or quality judgement before buying, comparing products or platforms, wishlist or saving behaviour, hesitation about buying, asking others for opinions, or seeking information to decide.
+Answer NO for everything else, including:
+- Any review of an item already purchased and received, even if it praises or criticises fit, size, quality, or fabric
+- Generic praise or criticism of the app, prices, variety, or service
+- Delivery, refund, return-processing, payment or customer-service issues
+- App bugs, UI complaints, or performance issues
+- Statements about variety or choice that express satisfaction rather than an unresolved decision
 
-Answer NO if the comment is only about: app performance or bugs, delivery or logistics, refunds or customer service, generic praise or generic complaint with no decision content, payment issues, or anything unrelated to fashion shopping.
+Critical test: if the person has already bought and received the item, the answer is NO regardless of what they say about it. If they are still deciding, the answer is YES.
 
-Return exactly one line per comment, in this format:
+Return exactly one line per comment:
 1: YES
 2: NO
-...
 
-Return nothing else. No explanation."""
+Return nothing else."""
 
 def classify_batch_with_retry(client, comments, batch_num, total_batches):
     prompt_lines = []
@@ -101,7 +110,7 @@ def is_unclassified(val):
     s = str(val).strip()
     return s == "" or s == "nan" or s == "None" or s == "ERROR"
 
-def run_relevance_filter(diagnostic=False):
+def run_relevance_filter(diagnostic=False, pilot=False):
     load_dotenv()
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
@@ -116,7 +125,14 @@ def run_relevance_filter(diagnostic=False):
 
     df_all = pd.read_csv(INPUT_FILE, encoding="utf-8")
 
-    if diagnostic:
+    if pilot:
+        print("=== RUNNING PILOT PASS (100 rows: 50 play_store, 50 youtube, seed 99) ===", flush=True)
+        df_play = df_all[df_all["source"] == "play_store"].sample(n=50, random_state=99)
+        df_yt = df_all[df_all["source"] == "youtube"].sample(n=50, random_state=99)
+        df_target = pd.concat([df_play, df_yt]).reset_index(drop=True)
+        df_target["relevant"] = None
+        output_checkpoint = os.path.join("data", "pilot2.csv")
+    elif diagnostic:
         print("=== RUNNING DIAGNOSTIC PASS (60 rows starting from row 861) ===", flush=True)
         df_target = df_all.iloc[860:920].copy().reset_index(drop=True)
         df_target["relevant"] = None
@@ -187,12 +203,13 @@ def run_relevance_filter(diagnostic=False):
         if b < num_batches - 1:
             time.sleep(8)
 
-    # Save final output datasets
-    df_clean = df_target[df_target["relevant"] == "YES"].copy()
-    df_rejected = df_target[df_target["relevant"] == "NO"].copy()
+    # Save final output datasets (skip if pilot or diagnostic)
+    if not pilot and not diagnostic:
+        df_clean = df_target[df_target["relevant"] == "YES"].copy()
+        df_rejected = df_target[df_target["relevant"] == "NO"].copy()
 
-    df_clean.to_csv(CLEAN_FILE, index=False, encoding="utf-8")
-    df_rejected.to_csv(REJECTED_FILE, index=False, encoding="utf-8")
+        df_clean.to_csv(CLEAN_FILE, index=False, encoding="utf-8")
+        df_rejected.to_csv(REJECTED_FILE, index=False, encoding="utf-8")
 
     # Summary Statistics
     total_processed = len(df_target)
@@ -202,15 +219,17 @@ def run_relevance_filter(diagnostic=False):
     overall_keep_rate = (yes_count / total_processed * 100) if total_processed > 0 else 0.0
 
     print("\n==========================================================================", flush=True)
-    print("                 FULL CORPUS RELEVANCE FILTER SUMMARY                     ", flush=True)
+    if pilot:
+        print("                        PILOT RUN SUMMARY                                 ", flush=True)
+    else:
+        print("                 FULL CORPUS RELEVANCE FILTER SUMMARY                     ", flush=True)
     print("==========================================================================", flush=True)
     print(f"Total Processed:    {total_processed}", flush=True)
     print(f"YES Count (Clean):  {yes_count}", flush=True)
     print(f"NO Count (Reject): {no_count}", flush=True)
     print(f"ERROR Count:        {error_count}", flush=True)
     print(f"Overall Keep Rate:  {overall_keep_rate:.2f}%", flush=True)
-    print(f"Clean Rows Count:   {len(df_clean)} -> {CLEAN_FILE}", flush=True)
-    print(f"Rejected Saved:     {len(df_rejected)} -> {REJECTED_FILE}", flush=True)
+    print(f"Saved Checkpoint:   {output_checkpoint}", flush=True)
 
     print("\n--- Keep Rate per Source ---", flush=True)
     print(f"{'Source':<15} | {'Total':<10} | {'YES (Clean)':<12} | {'NO (Reject)':<12} | {'Keep Rate':<10}", flush=True)
@@ -228,4 +247,5 @@ def run_relevance_filter(diagnostic=False):
 
 if __name__ == "__main__":
     is_diag = "--diagnostic" in sys.argv
-    run_relevance_filter(diagnostic=is_diag)
+    is_pilot = "--pilot" in sys.argv
+    run_relevance_filter(diagnostic=is_diag, pilot=is_pilot)

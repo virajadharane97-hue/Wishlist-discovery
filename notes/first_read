@@ -20,3 +20,32 @@ other sites allowing 1,000+ saves. Suggests a heavy-saver segment
 using the wishlist as a catalogue rather than a shortlist. Relevant
 to H0 (bookmark) and to the intent-quality branch. Found in raw
 data before filtering, unprompted.
+
+## Search-term bias caught, 19 Aug
+Initial hand-collection search terms were skewed toward size and fit,
+matching my stated H1 prior. Since hand-collected rows survive
+relevance filtering at ~100%, this would have inflated
+confidence-type blockers in the final counts. Corrected by rebalancing
+search terms across H1, H2, H3, H0 and neutral framings, with roughly
+equal collection from each group. Automated sources (Play Store,
+YouTube) are less affected — Play Store is unfiltered by topic, and
+YouTube video selection was haul-based rather than size-based, though
+the second YouTube pull should be checked for the same problem.
+
+## Hand-collected sample bias, 19 Aug
+Hand-collected rows (n=86 before cleaning) are heavily weighted
+toward fit and size, reflecting search terms that matched my stated
+H1 prior. Approximate split: fit/fabric ~45, price-watch ~10,
+bookmark ~6, comparison ~4, occasion 0. H3 (timing) is entirely
+absent.
+
+Consequence: hand-collected rows cannot be used to compare
+hypothesis strength. They are treated as depth material for
+mechanism and workarounds only. All comparative counts and
+opportunity scores are computed on the automated corpus (Play Store
++ YouTube), where topic selection was not driven by my prior.
+
+Corrective collection targeting H2, H3 and H0 added after this note.
+
+Also removed: N rows of SEO/marketing blog content that described
+shopping behaviour rather than reporting it, PLUS M ROWS OF CLEARLY OFF-TOPIC US BRAND-SPECIFIC COMPLAINTS.
