@@ -47,5 +47,24 @@ opportunity scores are computed on the automated corpus (Play Store
 
 Corrective collection targeting H2, H3 and H0 added after this note.
 
-Also removed: N rows of SEO/marketing blog content that described
-shopping behaviour rather than reporting it, PLUS M ROWS OF CLEARLY OFF-TOPIC US BRAND-SPECIFIC COMPLAINTS.
+Also removed: 8 rows of SEO, marketing and industry-commentary
+content that described shopping behaviour rather than reporting it
+(listicles, affiliate roundups, e-commerce marketing copy, and
+industry essays on sizing technology). Hand-collected set: 86 rows
+before cleaning, 78 after. PLUS 22 ROWS OF CLEARLY OFF-TOPIC US BRAND-SPECIFIC COMPLAINTS.
+Hand-collected set includes approximately 22 rows from international
+(mostly US) sources. These were retained because they describe a
+mechanism that is not market-specific — chiefly that published size
+charts do not match delivered garments, causing users to distrust
+charts entirely. Several of these rows articulate that mechanism more
+clearly than the Indian rows do.
+
+Geography was not tagged as a separate column. Consequence: counts
+drawn from the hand-collected set cannot be reported as
+India-specific, and international rows cannot be isolated or
+excluded later without re-reading the set. This is acceptable because
+the hand-collected set is used as depth material for mechanism and
+workarounds, not for comparative counts. All percentages and
+opportunity scores are computed on the automated corpus (Play Store
+and YouTube), which is India-filtered by collection parameters
+(regionCode IN, country in).

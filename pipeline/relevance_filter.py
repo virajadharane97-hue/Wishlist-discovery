@@ -12,9 +12,9 @@ from google.genai import types
 from google.genai.errors import APIError, ClientError
 
 INPUT_FILE = os.path.join("data", "raw_all.csv")
-CHECKPOINT_FILE = os.path.join("data", "checkpoint_relevance_v2.csv")
-CLEAN_FILE = os.path.join("data", "clean_v2.csv")
-REJECTED_FILE = os.path.join("data", "rejected_v2.csv")
+CHECKPOINT_FILE = os.path.join("data", "checkpoint_relevance_v3.csv")
+CLEAN_FILE = os.path.join("data", "clean_v3.csv")
+REJECTED_FILE = os.path.join("data", "rejected_v3.csv")
 
 BATCH_SIZE = 20
 MODEL_NAME = "gemini-3.5-flash-lite"
@@ -29,9 +29,14 @@ Answer YES only if the text shows one of these:
 - Seeking information in order to decide whether to buy
 - Explicitly describing a purchase not yet made
 
+CRITICAL EXCLUSION: Answer NO to comments that only request a purchase link, product name, price, or where to buy, with no stated uncertainty or question about the product itself. Examples that must be NO: 'link please', 'where can I buy this', 'name of the kurta?', 'I like the blue one, link?', 'second one link'. These show interest but contain no decision content.
+
+Answer YES only if the comment contains a specific unresolved question about the product, its fit, its fabric, its suitability, or a comparison between options — even if a link request appears alongside it.
+
 Answer NO for everything else, including:
 - Any review of an item already purchased and received, even if it praises or criticises fit, size, quality, or fabric
 - Generic praise or criticism of the app, prices, variety, or service
+- Generic praise of the items shown in a video, e.g. 'all the suits are beautiful', 'so pretty', with no question attached
 - Delivery, refund, return-processing, payment or customer-service issues
 - App bugs, UI complaints, or performance issues
 - Statements about variety or choice that express satisfaction rather than an unresolved decision
@@ -44,7 +49,10 @@ Return exactly one line per comment:
 
 Return nothing else."""
 
+api_requests_this_run = 0
+
 def classify_batch_with_retry(client, comments, batch_num, total_batches):
+    global api_requests_this_run
     prompt_lines = []
     for idx, comment in enumerate(comments, start=1):
         clean_comment = str(comment).replace("\n", " ").replace("\r", " ").strip()
@@ -60,6 +68,7 @@ def classify_batch_with_retry(client, comments, batch_num, total_batches):
     max_retries = 3
     for attempt in range(1, max_retries + 1):
         try:
+            api_requests_this_run += 1
             response = client.models.generate_content(
                 model=MODEL_NAME,
                 contents=prompt_text,
@@ -71,12 +80,16 @@ def classify_batch_with_retry(client, comments, batch_num, total_batches):
             err_type = type(e).__name__
             is_429 = getattr(e, "code", None) == 429 or getattr(e, "status_code", None) == 429 or "429" in err_str or "RESOURCE_EXHAUSTED" in err_str
             if is_429:
-                print(f"\n[RATE LIMIT 429] Batch {batch_num}/{total_batches} (Attempt {attempt}/{max_retries}): {err_str}", file=sys.stderr, flush=True)
+                print(f"\n==================== [RATE LIMIT 429 VERBATIM ERROR] ====================", file=sys.stderr, flush=True)
+                print(err_str, file=sys.stderr, flush=True)
+                print(f"=========================================================================\n", file=sys.stderr, flush=True)
+                
                 if "PerDay" in err_str:
-                    print(f"\n[FATAL QUOTA ERROR] PerDay limit encountered: {err_str}. Stopping execution immediately.", file=sys.stderr, flush=True)
+                    print(f"\n[FATAL QUOTA ERROR] PerDay limit encountered. Stopping execution immediately.", file=sys.stderr, flush=True)
+                    print(f"API requests made this run before stop: {api_requests_this_run}", file=sys.stderr, flush=True)
                     sys.exit(1)
                 else:
-                    print(f"[RATE LIMIT 429] Per-minute limit hit. Waiting 60s before retry...", file=sys.stderr, flush=True)
+                    print(f"[RATE LIMIT 429] Per-minute limit hit. Waiting 60s before retry (Attempt {attempt}/{max_retries})...", file=sys.stderr, flush=True)
                     time.sleep(60)
             else:
                 print(f"\n[API ERROR] Batch {batch_num}/{total_batches} failed: Exception Type: {err_type}, Message: {err_str}", file=sys.stderr, flush=True)
@@ -104,13 +117,14 @@ def parse_batch_response(response_text):
 
     return parsed_answers
 
-def is_unclassified(val):
+def is_blank(val):
     if pd.isna(val):
         return True
     s = str(val).strip()
-    return s == "" or s == "nan" or s == "None" or s == "ERROR"
+    return s == "" or s == "nan" or s == "None"
 
-def run_relevance_filter(diagnostic=False, pilot=False):
+def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=False):
+    global api_requests_this_run
     load_dotenv()
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
@@ -125,7 +139,17 @@ def run_relevance_filter(diagnostic=False, pilot=False):
 
     df_all = pd.read_csv(INPUT_FILE, encoding="utf-8")
 
-    if pilot:
+    if pilot4:
+        print("=== RUNNING PILOT 4 PASS (150 YouTube rows, seed 31) ===", flush=True)
+        df_target = df_all[df_all["source"] == "youtube"].sample(n=150, random_state=31).reset_index(drop=True)
+        df_target["relevant"] = None
+        output_checkpoint = os.path.join("data", "pilot4.csv")
+    elif pilot3:
+        print("=== RUNNING PILOT 3 PASS (100 YouTube rows, seed 21) ===", flush=True)
+        df_target = df_all[df_all["source"] == "youtube"].sample(n=100, random_state=21).reset_index(drop=True)
+        df_target["relevant"] = None
+        output_checkpoint = os.path.join("data", "pilot3.csv")
+    elif pilot:
         print("=== RUNNING PILOT PASS (100 rows: 50 play_store, 50 youtube, seed 99) ===", flush=True)
         df_play = df_all[df_all["source"] == "play_store"].sample(n=50, random_state=99)
         df_yt = df_all[df_all["source"] == "youtube"].sample(n=50, random_state=99)
@@ -148,8 +172,8 @@ def run_relevance_filter(diagnostic=False, pilot=False):
                 if "doc_id" in df_ckpt.columns and "relevant" in df_ckpt.columns:
                     ckpt_map = df_ckpt.set_index("doc_id")["relevant"].to_dict()
                     df_target["relevant"] = df_target["doc_id"].map(ckpt_map)
-                    valid_done = df_target["relevant"].apply(lambda v: not is_unclassified(v))
-                    print(f"Found existing checkpoint '{CHECKPOINT_FILE}'. Resuming: {valid_done.sum()} rows valid (YES/NO), re-processing remaining / ERROR rows...", flush=True)
+                    valid_done = df_target["relevant"].apply(lambda v: not is_blank(v))
+                    print(f"Found existing checkpoint '{CHECKPOINT_FILE}'. Resuming: {valid_done.sum()} rows valid (YES/NO), re-processing remaining blank rows...", flush=True)
                 else:
                     df_target["relevant"] = None
             except Exception as e:
@@ -160,17 +184,33 @@ def run_relevance_filter(diagnostic=False, pilot=False):
 
     total_rows = len(df_target)
 
-    # Determine indices needing classification (including ERROR rows and blank rows)
-    unclassified_indices = [idx for idx in df_target.index if is_unclassified(df_target.loc[idx, "relevant"])]
+    # Determine indices needing classification (strictly blank/NaN rows)
+    unclassified_indices = [idx for idx in df_target.index if is_blank(df_target.loc[idx, "relevant"])]
     initial_classified = total_rows - len(unclassified_indices)
 
-    print(f"Processing corpus ({total_rows} rows). Remaining to classify: {len(unclassified_indices)} rows...", flush=True)
+    # Apply minimum length rule (< 40 characters) BEFORE batching / API call on remaining blank rows
+    short_removed_count = 0
+    for idx in unclassified_indices:
+        text_val = str(df_target.loc[idx, "text"])
+        if len(text_val) < 40:
+            df_target.loc[idx, "relevant"] = "NO"
+            short_removed_count += 1
 
-    num_batches = (len(unclassified_indices) + BATCH_SIZE - 1) // BATCH_SIZE
+    # Re-evaluate indices that actually need API calls (must be blank and length >= 40)
+    api_unclassified_indices = [idx for idx in df_target.index if is_blank(df_target.loc[idx, "relevant"])]
+
+    # Compute overall statistics for length floor
+    total_short_rows = sum(1 for idx in df_target.index if len(str(df_target.loc[idx, "text"])) < 40)
+    total_api_rows = total_rows - total_short_rows
+
+    print(f"Minimum length filter (< 40 chars) statistics: {total_short_rows} / {total_rows} total rows are under 40 characters and automatically marked NO.")
+    print(f"Processing corpus ({total_rows} rows). Remaining to send to API: {len(api_unclassified_indices)} rows...", flush=True)
+
+    num_batches = (len(api_unclassified_indices) + BATCH_SIZE - 1) // BATCH_SIZE
     prev_milestone = initial_classified // 500
 
     for b in range(num_batches):
-        batch_indices = unclassified_indices[b * BATCH_SIZE : (b + 1) * BATCH_SIZE]
+        batch_indices = api_unclassified_indices[b * BATCH_SIZE : (b + 1) * BATCH_SIZE]
         batch_comments = df_target.loc[batch_indices, "text"].tolist()
 
         raw_resp, err_type, err_msg = classify_batch_with_retry(client, batch_comments, b + 1, num_batches)
@@ -186,14 +226,14 @@ def run_relevance_filter(diagnostic=False, pilot=False):
             val = parsed.get(item_idx, "ERROR")
             df_target.loc[row_idx, "relevant"] = val
 
-        # Progress check every 500 rows
-        current_classified = total_rows - sum(1 for idx in df_target.index if is_unclassified(df_target.loc[idx, "relevant"]))
+        # Progress check
+        current_classified = total_rows - sum(1 for idx in df_target.index if is_blank(df_target.loc[idx, "relevant"]))
         current_milestone = current_classified // 500
         if current_milestone > prev_milestone:
-            print(f"Progress: {current_milestone * 500} / {total_rows} rows classified...", flush=True)
+            print(f"Progress: {current_milestone * 500} / {total_rows} rows classified... | API Requests this run: {api_requests_this_run}", flush=True)
             prev_milestone = current_milestone
         else:
-            print(f"Batch {b + 1}/{num_batches} done ({current_classified}/{total_rows} classified)", flush=True)
+            print(f"Batch {b + 1}/{num_batches} done ({current_classified}/{total_rows} classified) | API Requests this run: {api_requests_this_run}", flush=True)
 
         # Save checkpoint after every batch
         os.makedirs(os.path.dirname(output_checkpoint), exist_ok=True)
@@ -204,7 +244,7 @@ def run_relevance_filter(diagnostic=False, pilot=False):
             time.sleep(8)
 
     # Save final output datasets (skip if pilot or diagnostic)
-    if not pilot and not diagnostic:
+    if not pilot and not pilot3 and not pilot4 and not diagnostic:
         df_clean = df_target[df_target["relevant"] == "YES"].copy()
         df_rejected = df_target[df_target["relevant"] == "NO"].copy()
 
@@ -219,11 +259,17 @@ def run_relevance_filter(diagnostic=False, pilot=False):
     overall_keep_rate = (yes_count / total_processed * 100) if total_processed > 0 else 0.0
 
     print("\n==========================================================================", flush=True)
-    if pilot:
+    if pilot4:
+        print("                        PILOT 4 RUN SUMMARY                               ", flush=True)
+    elif pilot3:
+        print("                        PILOT 3 RUN SUMMARY                               ", flush=True)
+    elif pilot:
         print("                        PILOT RUN SUMMARY                                 ", flush=True)
     else:
         print("                 FULL CORPUS RELEVANCE FILTER SUMMARY                     ", flush=True)
     print("==========================================================================", flush=True)
+    print(f"Rows Processed this Run:       {len(unclassified_indices)}", flush=True)
+    print(f"Total Requests Made (this run): {api_requests_this_run}", flush=True)
     print(f"Total Processed:    {total_processed}", flush=True)
     print(f"YES Count (Clean):  {yes_count}", flush=True)
     print(f"NO Count (Reject): {no_count}", flush=True)
@@ -248,4 +294,6 @@ def run_relevance_filter(diagnostic=False, pilot=False):
 if __name__ == "__main__":
     is_diag = "--diagnostic" in sys.argv
     is_pilot = "--pilot" in sys.argv
-    run_relevance_filter(diagnostic=is_diag, pilot=is_pilot)
+    is_pilot3 = "--pilot3" in sys.argv
+    is_pilot4 = "--pilot4" in sys.argv
+    run_relevance_filter(diagnostic=is_diag, pilot=is_pilot, pilot3=is_pilot3, pilot4=is_pilot4)
