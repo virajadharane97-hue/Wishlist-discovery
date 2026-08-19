@@ -1,0 +1,22 @@
+1. "Will it be durable for long time? According to its price and the material used" — that's not in your seed codebook. It's not BLOCK_FABRIC_QUALITY exactly; it's value-for-money uncertainty, a judgement about whether the price is justified by the material. Worth watching for during open coding. If it recurs, it's a real code the guide's seed list missed.
+
+2. "No I know about the product, fits me well, sizes are given" — this respondent has no information gap. Something else is stopping them, or nothing is and they're a price-watcher or a bookmarker. Check what they wrote for Q9 and Q16. This is your first H0/H1 discriminator, and one non-blocked respondent out of four is worth noting.
+
+3. Two of four are size/fit. Consistent with your H1 prior. n=4, so it means nothing yet — but write down that you saw it, so you can't later claim the data surprised you.
+
+Do not treat this as evidence. Four responses, and you're primed to see fit. Record and move on.
+
+## Raw Play Store scan, 19 Aug (20 rows)
+Play Store reviews are overwhelmingly about the app and service,
+not about deciding whether to buy a garment. Generic praise
+("quality is superb"), delivery and complaint-handling issues.
+This confirms limitation 4 in brief.md, observed in raw data
+before filtering. Expect a low relevance rate. YouTube becomes
+the primary source of pre-purchase discussion.
+
+## Notable single observation, AJIO row 0010, 19 Aug
+User complains that a 70-item wishlist cap is too small and cites
+other sites allowing 1,000+ saves. Suggests a heavy-saver segment
+using the wishlist as a catalogue rather than a shortlist. Relevant
+to H0 (bookmark) and to the intent-quality branch. Found in raw
+data before filtering, unprompted.
