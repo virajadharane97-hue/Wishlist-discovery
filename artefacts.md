@@ -42,6 +42,14 @@
 - Today's 500 consumed across: 4 pilots, v1 full run (142 req),
   v2 full run (304 req), v3 partial (30 req).
 
+  - Free-tier quota is 500 requests/day per project per model. The
+  first project's quota was exhausted during filter iteration
+  (v1 142 requests, v2 304, v3 30, plus pilots). A second Google
+  Cloud project was created to complete the run.
+- Model held constant at gemini-3.5-flash-lite across both projects,
+  so classification behaviour is unchanged. Only the quota pool
+  differs.
+
 ## Relevance filter iterations (19 Aug 2026)
 - v1: batch 40, base prompt. 26.11% keep (1,585). Manual spot-check
   found ~87% false positives on Play Store — keyword matching, not
@@ -54,5 +62,14 @@
 - v3 final: added 40-character pre-API length floor. Pilot precision
   ~80% on 17 kept rows. LOCKED.
 - Model: gemini-3.5-flash-lite, temperature 0, batch 20 throughout
+
+- v4: 665 YES (7.50%). Manual check of 74 hand-picked rows found
+  57 rejected, ~20 of them genuinely relevant. Separate check of 25
+  new-batch YES rows found ~10 usable. Both false negatives and
+  false positives present.
+- v5: two prompt changes. Post-purchase rule narrowed to allow
+  general conclusions drawn from past experience. Added exclusions
+  for review requests, platform questions, return/exchange problems,
+  and general anti-consumption advice.
 
 # Files

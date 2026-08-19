@@ -68,3 +68,19 @@ workarounds, not for comparative counts. All percentages and
 opportunity scores are computed on the automated corpus (Play Store
 and YouTube), which is India-filtered by collection parameters
 (regionCode IN, country in).
+
+Hand-collected set: 86 collected, 11 removed, 75 retained.
+Removed: SEO listicles, affiliate roundups, e-commerce marketing
+copy, and industry commentary — text that described or advised on
+shopping behaviour rather than reporting the author's own. Also
+removed brand-specific grievances with no transferable mechanism.
+Criterion: the text must report the author's own shopping behaviour.
+
+## Notable observation, 19 Aug — decluttering video comment
+One YouTube comment describes a full non-purchase decision: intent
+to buy a black camisole, mentally testing it against existing
+wardrobe, recalling a similar item bought a year earlier and never
+worn, and deciding against buying. Reason given is neither fit nor
+price — it is anticipated non-use based on a remembered previous
+failure. Not covered by H1, H2 or H3. Watch for this pattern during
+open coding: prior unworn purchases as a blocker on new saves.

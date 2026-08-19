@@ -8,10 +8,11 @@ FILES_TO_MERGE = [
     os.path.join("data", "raw_play_myntra.csv"),
     os.path.join("data", "raw_play_ajio.csv"),
     os.path.join("data", "raw_youtube.csv"),
+    os.path.join("data", "raw_youtube_2.csv"),
     os.path.join("data", "manual_collected.csv"),
 ]
 
-OUTPUT_FILE = os.path.join("data", "raw_all.csv")
+OUTPUT_FILE = os.path.join("data", "raw_all_v2.csv")
 
 def normalize_date(val):
     if pd.isna(val) or not str(val).strip():

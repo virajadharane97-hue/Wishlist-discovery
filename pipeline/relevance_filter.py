@@ -33,15 +33,25 @@ CRITICAL EXCLUSION: Answer NO to comments that only request a purchase link, pro
 
 Answer YES only if the comment contains a specific unresolved question about the product, its fit, its fabric, its suitability, or a comparison between options — even if a link request appears alongside it.
 
+Answer NO for reviews that only describe satisfaction or dissatisfaction with an item already received.
+Answer YES if the person states a general conclusion or coping rule drawn from past experience that affects future decisions. Examples that must be YES:
+- 'size charts are always off, why even have them'
+- 'I ordered 3 items all size M and each fit differently'
+- 'sizes are not standardised across brands'
+- 'I now only buy brands I already know'
+- 'the fabric described is misleading so I check reviews'
+Critical test: is the person describing THIS ITEM, or a rule they now follow? Item only = NO. Rule or belief = YES.
+
 Answer NO for everything else, including:
-- Any review of an item already purchased and received, even if it praises or criticises fit, size, quality, or fabric
 - Generic praise or criticism of the app, prices, variety, or service
 - Generic praise of the items shown in a video, e.g. 'all the suits are beautiful', 'so pretty', with no question attached
 - Delivery, refund, return-processing, payment or customer-service issues
 - App bugs, UI complaints, or performance issues
 - Statements about variety or choice that express satisfaction rather than an unresolved decision
-
-Critical test: if the person has already bought and received the item, the answer is NO regardless of what they say about it. If they are still deciding, the answer is YES.
+- Requests for the creator to review or compare something ('please review X', 'compare these', 'what about Y?')
+- Questions about which app or platform to use, with no product decision attached
+- Post-purchase return, exchange or refund problems
+- General advice about buying less, impulse control, or decluttering, unless it describes deferring a specific purchase decision (e.g. 'wait 10 days before buying' is YES, 'find a hobby' is NO)
 
 Return exactly one line per comment:
 1: YES
@@ -123,12 +133,12 @@ def is_blank(val):
     s = str(val).strip()
     return s == "" or s == "nan" or s == "None"
 
-def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=False):
+def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=False, v4=False, v5=False):
     global api_requests_this_run
     load_dotenv()
-    api_key = os.getenv("GEMINI_API_KEY")
+    api_key = os.getenv("GEMINI_API_KEY_2")
     if not api_key:
-        print("Error: GEMINI_API_KEY not found in .env file.", file=sys.stderr, flush=True)
+        print("Error: GEMINI_API_KEY_2 not found in .env file.", file=sys.stderr, flush=True)
         sys.exit(1)
 
     client = genai.Client(api_key=api_key)
@@ -138,6 +148,9 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
         sys.exit(1)
 
     df_all = pd.read_csv(INPUT_FILE, encoding="utf-8")
+
+    # Set dynamic request cap limit
+    request_limit = 350 if (v4 or v5) else 480
 
     if pilot4:
         print("=== RUNNING PILOT 4 PASS (150 YouTube rows, seed 31) ===", flush=True)
@@ -165,6 +178,16 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
         df_target = df_all
         output_checkpoint = CHECKPOINT_FILE
 
+        # Load V4 labels for comparison if in v5 mode
+        if v5:
+            v4_path = os.path.join("data", "checkpoint_relevance_v4.csv")
+            if os.path.exists(v4_path):
+                df_v4 = pd.read_csv(v4_path, encoding="utf-8")
+                v4_map = df_v4.set_index("doc_id")["relevant"].to_dict()
+                df_target["relevant_v4"] = df_target["doc_id"].map(v4_map)
+            else:
+                df_target["relevant_v4"] = None
+
         # Check for existing checkpoint to resume
         if os.path.exists(CHECKPOINT_FILE):
             try:
@@ -172,6 +195,12 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
                 if "doc_id" in df_ckpt.columns and "relevant" in df_ckpt.columns:
                     ckpt_map = df_ckpt.set_index("doc_id")["relevant"].to_dict()
                     df_target["relevant"] = df_target["doc_id"].map(ckpt_map)
+                    
+                    # If in v5, carry over comparison columns
+                    if v5 and "relevant_v4" in df_ckpt.columns:
+                        v4_map = df_ckpt.set_index("doc_id")["relevant_v4"].to_dict()
+                        df_target["relevant_v4"] = df_target["doc_id"].map(v4_map)
+
                     valid_done = df_target["relevant"].apply(lambda v: not is_blank(v))
                     print(f"Found existing checkpoint '{CHECKPOINT_FILE}'. Resuming: {valid_done.sum()} rows valid (YES/NO), re-processing remaining blank rows...", flush=True)
                 else:
@@ -179,6 +208,23 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
             except Exception as e:
                 print(f"[WARNING] Error reading checkpoint file: {e}. Starting fresh...", flush=True)
                 df_target["relevant"] = None
+        elif v4:
+            # Carry over play_ and yt_ labels from checkpoint_relevance_v3.csv
+            df_target["relevant"] = None
+            v3_path = os.path.join("data", "checkpoint_relevance_v3.csv")
+            if os.path.exists(v3_path):
+                df_v3 = pd.read_csv(v3_path, encoding="utf-8")
+                v3_carry = df_v3[df_v3["doc_id"].str.startswith(("play_", "yt_"))]
+                v3_map = v3_carry.set_index("doc_id")["relevant"].to_dict()
+                df_target["relevant"] = df_target["doc_id"].map(v3_map)
+                carried_count = df_target["relevant"].notna().sum()
+                print(f"Initialized V4: carried over {carried_count} valid labels from V3 checkpoint.", flush=True)
+            else:
+                print(f"[WARNING] V3 Checkpoint '{v3_path}' not found. Cannot carry over labels.", flush=True)
+        elif v5:
+            # For V5, we want to re-classify everything except the length-filtered rows
+            df_target["relevant"] = None
+            print("Initialized V5: all rows will be re-evaluated against updated criteria.", flush=True)
         else:
             df_target["relevant"] = None
 
@@ -210,6 +256,10 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
     prev_milestone = initial_classified // 500
 
     for b in range(num_batches):
+        if api_requests_this_run >= request_limit:
+            print(f"\n[REQUEST LIMIT REACHED] Reached API request limit of {request_limit} for this run. Stopping cleanly to preserve quota.", flush=True)
+            break
+
         batch_indices = api_unclassified_indices[b * BATCH_SIZE : (b + 1) * BATCH_SIZE]
         batch_comments = df_target.loc[batch_indices, "text"].tolist()
 
@@ -237,6 +287,7 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
 
         # Save checkpoint after every batch
         os.makedirs(os.path.dirname(output_checkpoint), exist_ok=True)
+        # Keep relevant_v4 if it exists in df_target to preserve across checkpoints
         df_target.to_csv(output_checkpoint, index=False, encoding="utf-8")
 
         # Pause 8 seconds between API calls
@@ -244,12 +295,19 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
             time.sleep(8)
 
     # Save final output datasets (skip if pilot or diagnostic)
-    if not pilot and not pilot3 and not pilot4 and not diagnostic:
-        df_clean = df_target[df_target["relevant"] == "YES"].copy()
-        df_rejected = df_target[df_target["relevant"] == "NO"].copy()
+    is_fully_complete = df_target["relevant"].apply(is_blank).sum() == 0
+    if not pilot and not pilot3 and not pilot4 and not diagnostic and is_fully_complete:
+        # Before saving final clean and rejected files, drop comparison column relevant_v4 from the final saved CSV files
+        df_to_save = df_target.copy()
+        if "relevant_v4" in df_to_save.columns:
+            df_to_save.drop(columns=["relevant_v4"], inplace=True)
+            
+        df_clean = df_to_save[df_to_save["relevant"] == "YES"].copy()
+        df_rejected = df_to_save[df_to_save["relevant"] == "NO"].copy()
 
         df_clean.to_csv(CLEAN_FILE, index=False, encoding="utf-8")
         df_rejected.to_csv(REJECTED_FILE, index=False, encoding="utf-8")
+        print(f"Corpus fully classified. Outputs written: {CLEAN_FILE}, {REJECTED_FILE}", flush=True)
 
     # Summary Statistics
     total_processed = len(df_target)
@@ -265,11 +323,33 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
         print("                        PILOT 3 RUN SUMMARY                               ", flush=True)
     elif pilot:
         print("                        PILOT RUN SUMMARY                                 ", flush=True)
+    elif v5:
+        print("                 FULL CORPUS RELEVANCE V5 SUMMARY                         ", flush=True)
+        # Calculate comparison metrics vs V4
+        # Recovered from rejected: v4 == NO and v5 == YES
+        recovered_count = ((df_target["relevant_v4"] == "NO") & (df_target["relevant"] == "YES")).sum()
+        # Removed from clean: v4 == YES and v5 == NO
+        removed_count = ((df_target["relevant_v4"] == "YES") & (df_target["relevant"] == "NO")).sum()
+        net_change = recovered_count - removed_count
+        print(f"Rows Recovered from Rejected:   {recovered_count}", flush=True)
+        print(f"Rows Removed from Clean:        {removed_count}", flush=True)
+        print(f"Net Change:                     {net_change:+d}", flush=True)
+        print(f"Total API Requests Made (run): {api_requests_this_run}", flush=True)
+    elif v4:
+        print("                 FULL CORPUS RELEVANCE V4 SUMMARY                         ", flush=True)
+        carried_over_cnt = df_target["doc_id"].str.startswith(("play_", "yt_")).sum()
+        newly_classified_cnt = df_target[df_target["doc_id"].str.startswith(("yt2_", "Manual_"))]["relevant"].notna().sum()
+        print(f"Rows Carried Over from V3:     {carried_over_cnt}", flush=True)
+        print(f"Rows Newly Classified:         {newly_classified_cnt}", flush=True)
+        print(f"Total API Requests Made (run): {api_requests_this_run}", flush=True)
     else:
         print("                 FULL CORPUS RELEVANCE FILTER SUMMARY                     ", flush=True)
     print("==========================================================================", flush=True)
-    print(f"Rows Processed this Run:       {len(unclassified_indices)}", flush=True)
-    print(f"Total Requests Made (this run): {api_requests_this_run}", flush=True)
+    
+    if not v4 and not v5:
+        print(f"Rows Processed this Run:       {len(unclassified_indices)}", flush=True)
+        print(f"Total Requests Made (this run): {api_requests_this_run}", flush=True)
+        
     print(f"Total Processed:    {total_processed}", flush=True)
     print(f"YES Count (Clean):  {yes_count}", flush=True)
     print(f"NO Count (Reject): {no_count}", flush=True)
@@ -296,4 +376,18 @@ if __name__ == "__main__":
     is_pilot = "--pilot" in sys.argv
     is_pilot3 = "--pilot3" in sys.argv
     is_pilot4 = "--pilot4" in sys.argv
-    run_relevance_filter(diagnostic=is_diag, pilot=is_pilot, pilot3=is_pilot3, pilot4=is_pilot4)
+    is_v4 = "--v4" in sys.argv
+    is_v5 = "--v5" in sys.argv
+    
+    if is_v4:
+        INPUT_FILE = os.path.join("data", "raw_all_v2.csv")
+        CHECKPOINT_FILE = os.path.join("data", "checkpoint_relevance_v4.csv")
+        CLEAN_FILE = os.path.join("data", "clean_v4.csv")
+        REJECTED_FILE = os.path.join("data", "rejected_v4.csv")
+    elif is_v5:
+        INPUT_FILE = os.path.join("data", "raw_all_v2.csv")
+        CHECKPOINT_FILE = os.path.join("data", "checkpoint_relevance_v5.csv")
+        CLEAN_FILE = os.path.join("data", "clean_v5.csv")
+        REJECTED_FILE = os.path.join("data", "rejected_v5.csv")
+        
+    run_relevance_filter(diagnostic=is_diag, pilot=is_pilot, pilot3=is_pilot3, pilot4=is_pilot4, v4=is_v4, v5=is_v5)
