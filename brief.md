@@ -202,10 +202,25 @@ simply did not buy. This is the main reason primary research is
 needed alongside the corpus, and it is why I expect the two sources
 to disagree.
 
-5. *Reddit API unavailable.* Reddit developer access could not be
+5. 5. *Reddit API unavailable.* Reddit developer access could not be
 obtained on 18 August 2026. Reddit and Quora data are hand-collected
-from public pages instead. Corpus composition: Play Store, YouTube,
-and hand-collected (n to be recorded).
+from public pages instead. Corpus composition: Play Store 4,496
+rows (5.3% relevance), YouTube 1,567 rows (47.1% relevance),
+hand-collected 51 rows (~100% relevance). The hand-collected source
+is the smallest but densest, and Play Store contributes the majority
+of raw volume while contributing least to the relevant corpus.
 
 6. *Single-rater validation.* The classifier reliability check
 compares machine labels against one human rater. A second independent rater would give a stronger agreement estimate.
+
+
+## 6. Predictions checked against data
+
+*Limitation 4, checked 19 August 2026.* The brief predicted that
+public comments would over-represent post-purchase grievance and
+under-represent pre-purchase hesitation. Measured relevance rates
+after filtering confirm this: Play Store 5.3%, YouTube 47.1%,
+hand-collected Reddit/Quora ~100%. Play Store reviews rate the app
+and the delivery, not the decision. This was predicted before
+collection and measured after, and it is why YouTube carries the
+analysis despite contributing only 26% of raw rows.

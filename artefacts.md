@@ -24,4 +24,10 @@
 - Myntra sample: 4,000 drawn from 10,000, seed 42
 - YouTube filtered to comments from 2024-01-01 onward
 
+# Markdown
+-- Model: gemini-3.5-flash-lite (all classification)
+- gemini-3.6-flash abandoned: free-tier cap of 20 requests/day.
+  Verified via 429 RESOURCE_EXHAUSTED, quotaValue 20.
+- Batch size 40, 8s pacing, 142 requests for 6,070 rows
+
 # Files
