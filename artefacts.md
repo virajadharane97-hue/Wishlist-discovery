@@ -104,4 +104,12 @@
   so classification behaviour is unchanged; only the quota pool
   differs.
 
+  ## Corpus composition by video context (n=682)
+- anti_consumption    196   28.7%
+- haul                145   21.3%
+- review_comparison   142   20.8%
+- other                72   10.6%
+- not_applicable       67    9.8%
+- size_guide           60    8.8%
+
 # Files

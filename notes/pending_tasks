@@ -1,0 +1,36 @@
+# Pending instructions — do not lose these
+
+## For the counting step (after classifier runs)
+Every code frequency, share and opportunity score must be computed
+twice:
+  (a) full corpus, n=682
+  (b) excluding video_context = anti_consumption, n=486
+
+Report both side by side. Flag any code whose share changes by more
+than 5 percentage points between the two.
+
+Reason: 29% of the relevant corpus comes from anti-consumption
+videos, which generate anticipated-non-use and wardrobe-saturation
+material by construction. A finding that only appears in (a) is an
+artefact of collection.
+
+## For the counting step — cross-tabs
+Split every code by video_context, and by platform_mentioned.
+Look for the biggest GAP, not the biggest number. A code at 30%
+overall and 55% in one group identifies the segment.
+
+## Before freezing the codebook
+1. Decide 15 blocker codes or merge to 13
+2. Settle the K1a resolution (individual codes, not groups)
+3. Test the codebook by hand on 20 fresh rows not in the 200-row
+   open coding sample
+4. Record the final K1b threshold in artefacts.md BEFORE counting
+5. Convert to data/codebook.json and do not edit after counting
+   begins
+
+## Before Day 4
+Deploy an empty Streamlit app to Streamlit Cloud. Deployment always
+breaks — break it early, when it costs an hour.
+
+## Ongoing
+Form responses: 13 as of 20 Aug. Window closes 23 Aug. Nudge daily.
