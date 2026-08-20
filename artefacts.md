@@ -72,4 +72,36 @@
   for review requests, platform questions, return/exchange problems,
   and general anti-consumption advice.
 
+  ## 20aug2026
+ ## Relevance filter final (v5), 20 Aug 2026
+- 8,861 raw → 682 relevant. Keep rate 7.70%. Zero errors.
+- YouTube 615 (14.33%), Play Store 29 (0.65%),
+  Reddit 27 (55.10%), Quora 11 (44.00%)
+- Model: gemini-3.5-flash-lite, temp 0, batch 20, 8s pacing,
+  40-character pre-API length floor
+- Total API requests across all v5 runs: 298
+
+## Filter validation
+- Five iterations, each triggered by a hand check of retained or
+  rejected rows. All versions preserved (clean_v1 to clean_v5).
+- v4 → v5: 126 false negatives recovered, 157 false positives
+  removed, net -31. Roughly 280 of 682 rows differ from v4.
+- Recall validated on hand-picked rows: 17 YES in v4 → 38 YES in v5.
+  Every row manually identified as wrongly rejected was recovered.
+- Final precision check (n=25, stratified 15 YouTube / 8
+  hand-collected / 2 Play Store, seed 77): ~15 of 25 carry codeable
+  decision content, approx 60%. Remaining rows are short questions
+  and platform queries that pass relevance but will not attract a
+  blocker code, so they do not enter the counts.
+
+## Quota constraints (verbatim from 429 responses)
+- gemini-3.6-flash: 20 requests/day free tier. Unusable for bulk.
+- gemini-3.5-flash-lite: 500 requests/day, per project per model.
+  quotaId GenerateRequestsPerDayPerProjectPerModel-FreeTier
+- Daily reset confirmed at 12:30 pm IST (midnight Pacific), observed
+  20 Aug 2026.
+- Two Google Cloud projects used. Model held constant across both,
+  so classification behaviour is unchanged; only the quota pool
+  differs.
+
 # Files

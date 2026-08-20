@@ -79,6 +79,7 @@ def classify_batch_with_retry(client, comments, batch_num, total_batches):
     for attempt in range(1, max_retries + 1):
         try:
             api_requests_this_run += 1
+            print(f"API Request #{api_requests_this_run} sent for batch {batch_num}/{total_batches}...", flush=True)
             response = client.models.generate_content(
                 model=MODEL_NAME,
                 contents=prompt_text,
@@ -150,7 +151,7 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
     df_all = pd.read_csv(INPUT_FILE, encoding="utf-8")
 
     # Set dynamic request cap limit
-    request_limit = 350 if (v4 or v5) else 480
+    request_limit = 480
 
     if pilot4:
         print("=== RUNNING PILOT 4 PASS (150 YouTube rows, seed 31) ===", flush=True)
@@ -232,6 +233,7 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
 
     # Determine indices needing classification (strictly blank/NaN rows)
     unclassified_indices = [idx for idx in df_target.index if is_blank(df_target.loc[idx, "relevant"])]
+    initial_blank_count = len(unclassified_indices)
     initial_classified = total_rows - len(unclassified_indices)
 
     # Apply minimum length rule (< 40 characters) BEFORE batching / API call on remaining blank rows
@@ -309,6 +311,9 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
         df_rejected.to_csv(REJECTED_FILE, index=False, encoding="utf-8")
         print(f"Corpus fully classified. Outputs written: {CLEAN_FILE}, {REJECTED_FILE}", flush=True)
 
+    final_blank_count = sum(1 for idx in df_target.index if is_blank(df_target.loc[idx, "relevant"]))
+    rows_processed_this_run = initial_blank_count - final_blank_count
+
     # Summary Statistics
     total_processed = len(df_target)
     yes_count = (df_target["relevant"] == "YES").sum()
@@ -334,28 +339,34 @@ def run_relevance_filter(diagnostic=False, pilot=False, pilot3=False, pilot4=Fal
         print(f"Rows Recovered from Rejected:   {recovered_count}", flush=True)
         print(f"Rows Removed from Clean:        {removed_count}", flush=True)
         print(f"Net Change:                     {net_change:+d}", flush=True)
-        print(f"Total API Requests Made (run): {api_requests_this_run}", flush=True)
     elif v4:
         print("                 FULL CORPUS RELEVANCE V4 SUMMARY                         ", flush=True)
         carried_over_cnt = df_target["doc_id"].str.startswith(("play_", "yt_")).sum()
         newly_classified_cnt = df_target[df_target["doc_id"].str.startswith(("yt2_", "Manual_"))]["relevant"].notna().sum()
         print(f"Rows Carried Over from V3:     {carried_over_cnt}", flush=True)
         print(f"Rows Newly Classified:         {newly_classified_cnt}", flush=True)
-        print(f"Total API Requests Made (run): {api_requests_this_run}", flush=True)
     else:
         print("                 FULL CORPUS RELEVANCE FILTER SUMMARY                     ", flush=True)
     print("==========================================================================", flush=True)
     
-    if not v4 and not v5:
-        print(f"Rows Processed this Run:       {len(unclassified_indices)}", flush=True)
-        print(f"Total Requests Made (this run): {api_requests_this_run}", flush=True)
-        
-    print(f"Total Processed:    {total_processed}", flush=True)
-    print(f"YES Count (Clean):  {yes_count}", flush=True)
-    print(f"NO Count (Reject): {no_count}", flush=True)
-    print(f"ERROR Count:        {error_count}", flush=True)
-    print(f"Overall Keep Rate:  {overall_keep_rate:.2f}%", flush=True)
-    print(f"Saved Checkpoint:   {output_checkpoint}", flush=True)
+    print(f"Rows Processed this Run:       {rows_processed_this_run}", flush=True)
+    print(f"Total API Requests (this run): {api_requests_this_run}", flush=True)
+    print(f"Total Processed (Corpus):      {total_processed}", flush=True)
+    print(f"YES Count (Clean):             {yes_count}", flush=True)
+    print(f"NO Count (Reject):             {no_count}", flush=True)
+    print(f"ERROR Count:                   {error_count}", flush=True)
+    print(f"Overall Keep Rate:             {overall_keep_rate:.2f}%", flush=True)
+    print(f"Saved Checkpoint:              {output_checkpoint}", flush=True)
+
+    # Hand-collected rows statistics (doc_id prefix manual_ case-insensitive)
+    manual_df = df_target[df_target["doc_id"].str.lower().str.startswith("manual_", na=False)]
+    if len(manual_df) > 0:
+        manual_yes_df = manual_df[manual_df["relevant"] == "YES"]
+        manual_yes_count = len(manual_yes_df)
+        manual_yes_ids = manual_yes_df["doc_id"].tolist()
+        print("\n--- Hand-collected Rows (manual_) Statistics ---", flush=True)
+        print(f"YES Count for manual_ rows: {manual_yes_count} / {len(manual_df)}", flush=True)
+        print(f"List of doc_ids marked YES: {manual_yes_ids}", flush=True)
 
     print("\n--- Keep Rate per Source ---", flush=True)
     print(f"{'Source':<15} | {'Total':<10} | {'YES (Clean)':<12} | {'NO (Reject)':<12} | {'Keep Rate':<10}", flush=True)
