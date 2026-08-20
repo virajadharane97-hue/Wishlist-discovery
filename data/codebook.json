@@ -1,0 +1,181 @@
+{
+  "version": "1.2",
+  "revision_date": "2026-08-20",
+  "revision_reason": "Drastically narrowed BLOCK_SOCIAL_VALIDATION to specific named approval only, routing substantive query requests to their specific categories and tagging external_workaround as friends or creator. Added CONTENT REQUEST RULE to exclude content requests from blockers.",
+  "frozen_date": "2026-08-20",
+  "built_from": "Open coding of 200 rows (seed 55) from clean_v5.csv. 124 raw labels merged. Tested by hand on 20 fresh rows (seed 88), which produced two additions: INTENT_ACQUISITION_WATCH and the role field.",
+  "k1b_threshold": {
+    "blocker_code_count": 15,
+    "baseline_pct": 6.67,
+    "threshold_pct": 13.33,
+    "note": "Computed and recorded before any counting began."
+  },
+  "k1a_resolution": {
+    "level": "individual_code",
+    "confidence_type_codes": [
+      "BLOCK_SIZE_SELECTION",
+      "BLOCK_CHART_UNRELIABLE",
+      "BLOCK_BODY_PROJECTION",
+      "BLOCK_LISTING_INCOMPLETE",
+      "BLOCK_FABRIC_QUALITY",
+      "BLOCK_DURABILITY_VALUE"
+    ],
+    "note": "H1 survives only if a single confidence-type code ranks first by opportunity score. Group shares reported but not used for the decision, because grouping 6 of 15 codes would make the test nearly impossible to fail."
+  },
+
+  "blocker_codes": [
+    {
+      "code": "BLOCK_SIZE_SELECTION",
+      "definition": "Cannot map own measurements or body to a size on this listing.",
+      "use_when": "The person states or asks which size to order, often giving height, weight or measurements.",
+      "do_not_use_when": "They distrust the chart itself (use BLOCK_CHART_UNRELIABLE), or the chart data is absent (use BLOCK_LISTING_INCOMPLETE). They followed the chart or took measurements and the garment still did not match. That is BLOCK_CHART_UNRELIABLE.",
+      "example": "5 feet 3 inches, 47 kg, which size for a tank top?"
+    },
+    {
+      "code": "BLOCK_CHART_UNRELIABLE",
+      "definition": "Believes size charts or size labels cannot be trusted, usually because they vary across brands or contradict past experience.",
+      "use_when": "The person generalises from experience to a rule about charts or labels. The decisive test is whether they did the work correctly and the information still failed them. 'I measured before ordering and the collar was still too small' is CHART_UNRELIABLE. 'What size should I order' is SIZE_SELECTION.",
+      "do_not_use_when": "They simply do not know their size (use BLOCK_SIZE_SELECTION).",
+      "example": "The chart said I was a 0. I ended up with a size 6."
+    },
+    {
+      "code": "BLOCK_BODY_PROJECTION",
+      "definition": "Cannot picture the item on their own body, height or shape. The question is not which size, but how it will look.",
+      "use_when": "Height, build, body type or shape is the axis of doubt.",
+      "do_not_use_when": "The doubt is about the garment's own properties (use fabric or styling codes).",
+      "example": "Clothes never looked right on my average-height, chubby body."
+    },
+    {
+      "code": "BLOCK_LISTING_INCOMPLETE",
+      "definition": "The information needed to decide is not present on the listing.",
+      "use_when": "A specific missing field is named: no length option, no inseam, incomplete chart, fabric composition absent.",
+      "do_not_use_when": "The information exists but is disbelieved (use a trust code). The person is asking where to buy the item, whether it is available, or whether it is in stock. Availability is out of scope; return null.",
+      "example": "Why don't apps like Myntra have a length section?"
+    },
+    {
+      "code": "BLOCK_FABRIC_QUALITY",
+      "definition": "Unresolved doubt about fabric, weight, transparency, colour accuracy, or comfort.",
+      "use_when": "The doubt is about a material property before purchase.",
+      "do_not_use_when": "The concern is how long it will last (use BLOCK_DURABILITY_VALUE).",
+      "example": "Snitch white shirts, are they transparent?"
+    },
+    {
+      "code": "BLOCK_DURABILITY_VALUE",
+      "definition": "Doubt about whether the item will last, or whether the price is justified by what is delivered.",
+      "use_when": "Longevity or price-to-quality is the axis.",
+      "do_not_use_when": "The person is waiting for a discount (use INTENT_PRICE_WATCH).",
+      "example": "I need one that lasts more than 3 washes."
+    },
+    {
+      "code": "BLOCK_IMAGE_DISTRUST",
+      "definition": "Believes the images or video do not represent the real product.",
+      "use_when": "A discrepancy between what was shown and what arrives, or suspicion of enhanced or AI-generated imagery.",
+      "do_not_use_when": "The doubt is about authenticity of the brand (use BLOCK_AUTHENTICITY).",
+      "example": "Looks good in video but the quality was really poor."
+    },
+    {
+      "code": "BLOCK_REVIEW_DISTRUST",
+      "definition": "Does not believe reviews or creator recommendations are honest.",
+      "use_when": "The credibility of the evidence source is the issue.",
+      "do_not_use_when": "They believe the reviews but the information is missing (use BLOCK_LISTING_INCOMPLETE).",
+      "example": "Do you give honest reviews or is it promotion?"
+    },
+    {
+      "code": "BLOCK_AUTHENTICITY",
+      "definition": "Doubts the product is genuine rather than counterfeit or a replica.",
+      "use_when": "The question is whether the item is the real brand.",
+      "do_not_use_when": "The concern is quality rather than genuineness (use BLOCK_DURABILITY_VALUE).",
+      "example": "This is a DNMX product with a Shein tag."
+    },
+    {
+      "code": "BLOCK_ANTICIPATED_NONUSE",
+      "definition": "Expects not to actually wear or use the item, often based on a remembered previous purchase that went unworn, or because the item suits an imagined rather than actual life.",
+      "use_when": "The person doubts their own future use of the item.",
+      "do_not_use_when": "The doubt is whether it will fit or look right (use fit codes). This is about use, not suitability.",
+      "example": "I realised I didn't need it, so I am returning it unopened."
+    },
+    {
+      "code": "BLOCK_WARDROBE_SATURATION",
+      "definition": "Already owns enough, or too much. The new item must compete against existing items.",
+      "use_when": "Existing possessions, or a self-imposed buying restriction, are the stated reason for hesitation. Includes no-buy challenges and struggling to stop shopping.",
+      "do_not_use_when": "role is advising and they are describing a general strategy rather than their own current situation.",
+      "example": "No buy for 2026. My closet is full of clothes."
+    },
+    {
+      "code": "BLOCK_STYLING",
+      "definition": "Does not know what to wear it with, or whether it suits the occasion, their age, or their colouring.",
+      "use_when": "The doubt is about combination, occasion appropriateness, or personal suitability of style or colour.",
+      "do_not_use_when": "The doubt is about fit on the body (use BLOCK_BODY_PROJECTION).",
+      "example": "Overthinking what to wear for my best friend's wedding in three months."
+    },
+    {
+      "code": "BLOCK_CHOICE_COMPARISON",
+      "definition": "Cannot decide between two or more specific options.",
+      "use_when": "Named alternatives are being weighed against each other.",
+      "do_not_use_when": "Only one item is under consideration.",
+      "example": "Myntra one is round collar, Meesho one is Chinese collar."
+    },
+    {
+      "code": "BLOCK_SOCIAL_VALIDATION",
+      "definition": "Waiting on a specific named person's approval, where no other product uncertainty is stated.",
+      "use_when": "The only stated blocker is that another person has not yet given their view. 'I need to ask my sister first', 'waiting for my mum to decide'.",
+      "do_not_use_when": "The person states a substantive uncertainty — size, fabric, styling, comparison — even if they are asking someone else to resolve it. In that case code the SUBSTANTIVE uncertainty as primary_blocker, and record the asking in external_workaround as 'friends' or 'creator'.",
+      "example": "Seeking family opinion before choosing a style."
+    },
+    {
+      "code": "BLOCK_RETURN_FRICTION",
+      "definition": "Hesitation caused by doubt about the return or exchange process.",
+      "use_when": "The return or exchange mechanism itself is the stated worry, before buying.",
+      "do_not_use_when": "A return is already in progress and they are reporting a problem (that is post-purchase, code null).",
+      "example": "If the exchanged item is not liked, can it be returned again?"
+    }
+  ],
+
+  "intent_codes": [
+    {
+      "code": "INTENT_GENUINE",
+      "definition": "States or implies an actual plan to buy this item."
+    },
+    {
+      "code": "INTENT_PRICE_WATCH",
+      "definition": "Saved in order to monitor price, including using the wishlist as a sale-tracking tool.",
+      "scope_note": "Measured and reported. Excluded from solution scope by the no-monetary-incentive constraint."
+    },
+    {
+      "code": "INTENT_OCCASION",
+      "definition": "Saved for a named event, trip or season."
+    },
+    {
+      "code": "INTENT_INSPIRATION",
+      "definition": "Saved as a style reference, with no plan to buy."
+    },
+    {
+      "code": "INTENT_SIMULATED_OWNERSHIP",
+      "definition": "Saved to obtain some of the satisfaction of owning without spending.",
+      "origin": "New code from the data. Example from corpus: waiting it out by creating a wishlist, but the longer the wait the stronger the desire."
+    },
+    {
+      "code": "INTENT_ACQUISITION_WATCH",
+      "definition": "Saved as a standing want, to be acquired whenever and wherever it turns up. Waiting on availability, a thrift find, or a second-hand opportunity, not on price.",
+      "do_not_use_when": "The person is waiting for a discount on this listing (use INTENT_PRICE_WATCH)."
+    }
+  ],
+
+  "excluded_from_codebook": [
+    {
+      "theme": "Availability and out of stock",
+      "raw_label_count": 4,
+      "reason": "Stock is a supply problem, not a growth problem. Consistent with the scope decision in brief.md, Q5."
+    },
+    {
+      "theme": "Findability and link requests",
+      "raw_label_count": 9,
+      "reason": "Artefact of the YouTube source: viewers asking creators where to buy. Not a blocker on a saved item."
+    },
+    {
+      "theme": "Off-topic and non-fashion",
+      "raw_label_count": 6,
+      "reason": "Retained in the corpus but coded null."
+    }
+  ]
+}

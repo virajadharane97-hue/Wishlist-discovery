@@ -1,0 +1,43 @@
+# Classifier validation
+
+Method: 100 rows (seed 99) and 50 fresh rows (seed 202) hand-labelled
+blind, no machine labels visible, using codebook definitions only.
+Single rater.
+
+## Results
+| Codebook | Sample | Agreement | Cohen's kappa |
+|---|---|---|---|
+| v1.0 | n=100 | 49% | 0.409 |
+| v1.0 | n=50 | 32% | 0.256 |
+| v1.1 | n=50 | 28% | 0.205 |
+| v1.2 | n=50 | 36% | 0.289 |
+
+Excluding the 16 rows where the disagreement was structural (below):
+v1.2 agreement 52.9%.
+
+## Diagnosis
+Disagreement is concentrated in one construct, not spread across the
+taxonomy. On 16 of 50 rows the human coded BLOCK_SOCIAL_VALIDATION —
+the user is delegating the decision to a trusted creator — while the
+machine coded the substantive uncertainty underneath (size, fabric,
+styling).
+
+Both readings are defensible. The codebook conflated two dimensions:
+WHAT the user cannot resolve, and HOW they are attempting to resolve
+it. v1.2 separated them: substantive uncertainty in primary_blocker,
+delegation in external_workaround. After that change, 11 of the 16
+disputed rows carry external_workaround = "creator", confirming the
+classifier detects the behaviour but files it elsewhere.
+
+## Conclusion
+Agreement of 36% (kappa 0.289) is below the 0.6 threshold. Reported
+blocker shares are therefore indicative, not precise. Three
+mitigations: (1) no conclusion rests on a difference of less than
+about 3 percentage points between codes; (2) the ranking of the top
+three codes was stable across all three codebook versions; (3) all
+findings are cross-checked against primary research, and only
+findings supported by both sources are reported.
+
+Limitation: single rater. A second independent rater would give a
+stronger estimate and would test whether the residual disagreement is
+codebook ambiguity or rater idiosyncrasy.

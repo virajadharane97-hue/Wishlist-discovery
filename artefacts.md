@@ -112,4 +112,55 @@
 - not_applicable       67    9.8%
 - size_guide           60    8.8%
 
+## Codebook frozen 20 Aug 2026
+- 15 blocker codes, 5 intent codes
+- Built bottom-up from 124 raw labels via open coding on 200 rows
+  (seed 55), then merged. Seed codebook used only as a gap check.
+
+## K1b threshold, computed before counting
+- 15 blocker codes
+- Baseline = 100 ÷ 15 = 6.67%
+- Threshold = 2 × baseline = 13.33%
+- H1 dies if no confidence-type blocker code reaches 13.33% of
+  coded rows, even if one ranks first.
+
+## K1a resolution, decided before counting
+- K1a is evaluated at INDIVIDUAL CODE level, not group level.
+- H1 survives only if one of these ranks first by opportunity score:
+  BLOCK_SIZE_SELECTION, BLOCK_CHART_UNRELIABLE,
+  BLOCK_BODY_PROJECTION, BLOCK_LISTING_INCOMPLETE,
+  BLOCK_FABRIC_QUALITY, BLOCK_DURABILITY_VALUE
+- Group-level shares will be reported alongside, labelled as
+  grouped, and will NOT be used to decide whether H1 survives.
+- Reason: grouping 6 of 15 codes as "my hypothesis" would make the
+  test nearly impossible to fail, which defeats the purpose of a
+  kill condition.
+
+  ## Classifier (20 Aug 2026)
+- Model gemini-3.5-flash-lite, temperature 0, batch 20, 8s pacing
+- Codebook: data/codebook.json v1.0, frozen 20 Aug, 15 blocker codes,
+  6 intent codes, role field
+- Post-hoc verbatim validation: evidence_quote must be a contiguous
+  substring of the source after whitespace normalisation, else set to
+  null and quote_valid = False
+
+### Known variance
+Two pilot runs on the same 100-row sample (seed 66) at temperature 0
+produced slightly different blocker distributions — DURABILITY 6 vs 9,
+STYLING 7 vs 5, ANTICIPATED_NONUSE 2 vs 1. Temperature 0 reduces but
+does not eliminate model variance. All reported shares should be read
+as approximate to within a few percentage points, and no conclusion
+should rest on a difference of less than about 3 points between codes.
+
+### Classifier data integrity
+- 1 row (yt_1054) failed JSON parsing due to nested double quotes in
+  the source text. Re-sent individually with quote marks sanitised,
+  same prompt and temperature. Label is the model's output, not
+  hand-assigned.
+- 1 row (play_ajio_0460) returned BLOCK_FABric_QUALITY, a casing
+  deviation from the frozen codebook. Corrected to
+  BLOCK_FABRIC_QUALITY. No invented code names across 682 rows.
+- 18 of 682 evidence quotes failed the verbatim substring check and
+  were set to null (2.6%).
+
 # Files
