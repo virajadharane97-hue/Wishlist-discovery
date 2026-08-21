@@ -5,3 +5,7 @@ __pycache__/
 venv/
 data/*.csv
 .DS_Store
+
+!data/labelled_v3.csv
+!data/opportunity_scores.csv
+!data/evidence.csv

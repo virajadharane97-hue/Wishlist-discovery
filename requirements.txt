@@ -6,3 +6,4 @@ plotly
 scikit-learn
 python-dotenv
 google-api-python-client
+pyarrow<25
