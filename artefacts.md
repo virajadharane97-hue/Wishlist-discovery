@@ -267,4 +267,18 @@ consulting size charts or measuring themselves. Null values mean the
 workaround was not stated in the comment, not that none exists, so
 the 74.3% figure is computed on rows where a workaround was recorded.
 
+## Links
+- AI Discovery Engine (Deliverable 1):
+  https://wishlist-discovery-lrfjnwcual42uzaat9po84.streamlit.app/
+- GitHub: https://github.com/virajadharane97-hue/Wishlist-discovery
+- Deployed and verified 21 Aug 2026 on desktop and mobile, private
+  window, no login. Four tabs: findings with five charts, evidence
+  with clickable source links, live classifier with demo-mode
+  fallback, method and validation.
+- Theme pinned to light in .streamlit/config.toml so the
+  colour-blind-safe palette is not inverted by device dark mode.
+  - Live classifier verified on the deployed app: a substantive comment
+  returns a real classification; empty input falls back to the saved
+  example with a warning rather than an error.
+
 # Files
