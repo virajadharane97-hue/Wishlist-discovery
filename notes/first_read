@@ -85,28 +85,43 @@ price — it is anticipated non-use based on a remembered previous
 failure. Not covered by H1, H2 or H3. Watch for this pattern during
 open coding: prior unworn purchases as a blocker on new saves.
 
-## Form responses, first read (n=13), 20 Aug
+## Full form response read, n=20, 21 Aug
 
-K3 — External search: 9 of 13 searched outside the app before
-deciding. Threshold was 50%. K3 does not fire.
-Sources: Google 7, YouTube 5, asked friend/family 5, other app 5,
-Reddit 2, Instagram 2, physical store 1.
+K3 external search: 16 of 20 (80%). Does not fire.
+K2 specificity: 19 of 20 stated a concrete answerable question.
+Does not fire.
 
-K2 — Specificity: 8 of 13 gave a specific, answerable information
-requirement in Q16. K2 does not fire.
+INTENT AT SAVE (Q9): intended to buy 5 (25%), occasion or trip 6
+(30%), saving to compare 6 (30%), liked but not planning 2 (10%),
+style reference 1 (5%). Only a quarter of saves carried direct
+purchase intent. Implication: P(intent is genuine) is a real term in
+the driver tree, and the denominator must be segmented before any
+experiment result is judged.
 
-Unprompted finding: 3 respondents explicitly stated they do not need
-a lower price, in a question that already instructed them to assume
-constant price. Direct support for a non-monetary solution.
+ROOT CAUSE (Q12): information exists but answers the wrong question.
+Reviews report appearance on arrival; the decision requires fit on a
+similar body, fabric in use, and durability over time. Verbatim:
+"nobody mentions their height, or if they do they're all 5'6+";
+"11 reviews and all of them are about how pretty it looks, not one
+person says whether they were sweating in it".
 
-Refinement to H1: respondents do not ask for manufacturer
-information. They ask for evidence from other customers similar to
-themselves — same body type, same height, same use case, over time.
-H1 should be restated as a similarity-qualified social proof gap
-rather than a generic information gap.
+RESOLUTION THRESHOLD (Q16): five respondents describe a blocker
+removable by a single artefact — one full-length photo with the
+reviewer's height, one video, one photo of the bag with a laptop
+inside, two sentences of measurements. Verbatim: "One photo. That's
+the entire blocker and it's slightly absurd that it doesn't exist";
+"I'm one nudge away, honestly".
 
-Price-motivated: 5 of 13 gave price or need-based answers. Measured,
-reported, out of scope by constraint.
+PRICE EXPLICITLY REJECTED: three respondents stated unprompted that
+they do not need a lower price, in a question that already
+instructed them to assume constant price.
+
+SEGMENT CANDIDATE, defined by behaviour: users who search outside the
+app before deciding on a saved item. 16 of 20. Of the four
+non-searchers, three gave price or need-based answers to Q16, placing
+them out of scope by the no-monetary-incentive constraint. Searchers
+have demonstrated intent, demonstrated effort, and an information
+problem that is resolvable.
 
 ## Rows requiring judgement, 20 Aug
 
