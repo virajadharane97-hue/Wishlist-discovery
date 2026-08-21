@@ -214,6 +214,8 @@ if corpus_view == "Excluding anti-consumption videos (n=486)":
 else:
     df_global = df_lab.copy()
 
+total_coded_global = df_global["primary_blocker"].notna().sum()
+
 # Render tabs
 tab1, tab2, tab3, tab4 = st.tabs(["Findings", "Evidence", "Live analysis", "How it works"])
 
@@ -775,7 +777,7 @@ with tab4:
         st.markdown(f"""
         * **Total Raw Comments:** 8,861
         * **Relevant Corpus Size:** 682 (7.7% relevant)
-        * **Current View Coded Rows:** {total_coded}
+        * **Coded Rows (corpus view):** {total_coded_global}
         
         **Keep Rates by Source:**
         * **YouTube:** 14.33%
