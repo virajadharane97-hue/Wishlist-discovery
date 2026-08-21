@@ -17,7 +17,7 @@ st.set_page_config(page_title="Wishlist Discovery Engine", page_icon="🛍️", 
 st.markdown("""
 <style>
     /* Font Stack */
-    html, body, [data-testid="stAppViewContainer"], .stText, h1, h2, h3, p, span, button, select, div {
+    h1, h2, h3, h4, p, [data-testid="stMarkdownContainer"], [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         font-family: system-ui, -apple-system, "Segoe UI", sans-serif !important;
     }
     
