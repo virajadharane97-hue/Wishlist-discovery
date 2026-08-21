@@ -135,3 +135,38 @@ Mitigation: all frequencies, shares and opportunity scores computed
 twice — full corpus (n=682) and excluding anti_consumption (n=486).
 Findings reported only where they hold in both. Corpus composition
 table stated on the findings slide.
+
+## Corpus artefact confirmed, 21 Aug
+BLOCK_WARDROBE_SATURATION: 37 rows in the full corpus, 4 rows
+excluding anti_consumption video sources. Share 9.84% → 1.37%,
+a swing of 8.47pp, rank 3 → 13. 33 of 37 rows originate from
+anti-consumption and decluttering videos.
+
+Grouped with BLOCK_ANTICIPATED_NONUSE: 55 rows → 5 rows,
+14.63% → 1.71%, swing of 12.92pp.
+
+Conclusion: anticipated non-use and wardrobe saturation are
+artefacts of collection, not findings. Three of fifteen search terms
+in the second YouTube round pulled decluttering content, and the
+medium-duration filter favoured that genre. Reported as a
+limitation, excluded from the opportunity ranking.
+
+All other codes moved less than 2pp between the two counts. The
+top-two ranking is identical in both. Ranking is robust to the
+exclusion.
+
+## Code contamination found in evidence review, 21 Aug
+BLOCK_DURABILITY_VALUE is absorbing general price complaints. Four of
+the five highest-severity quotes are about prices rising or items
+being unaffordable, not about durability or value-for-money. The
+definition — "whether the price is justified by what is delivered" —
+was read by the classifier as anything price-related.
+
+Consequence: BLOCK_DURABILITY_VALUE (7.19%, rank 5) is overstated,
+and INTENT_PRICE_WATCH (22 rows) is understated. Price sensitivity in
+the corpus is larger than the intent code suggests.
+
+Not corrected, because the codebook is frozen and the affected code
+is rank 5, outside the top two the analysis rests on. Reported as a
+limitation. The top two codes were inspected and show no equivalent
+contamination.

@@ -192,4 +192,79 @@ should rest on a difference of less than about 3 points between codes.
 - authenticity: 9
 - null: 350
 
+## Links
+- AI Discovery Engine: https://wishlist-discovery-lrfjnwcual42uzaat9po84.streamlit.app/
+- GitHub: https://github.com/virajadharane97-hue/Wishlist-discovery
+- Deployed 21 Aug 2026, shell only. Content added Day 4.
+
+## Opportunity score formula
+opportunity_score = share (as %) × avg_severity × avg_proximity_weight
+
+Where:
+- share = count / total rows with a non-null primary_blocker
+- avg_severity = mean of severity_1_5 for rows carrying that code
+- proximity weights: low = 0.5, medium = 1.0, high = 1.5
+
+The proximity weights are a judgement, not a measured value. They
+encode the assumption that a blocker sitting closer to the purchase
+decision matters more than one sitting further away. Stated as a
+judgement on the findings slide.
+
+Computed twice: full corpus (n=682) and excluding
+video_context = anti_consumption (n=486). Any code whose share moves
+more than 5 percentage points between the two is flagged as
+potentially an artefact of corpus composition.
+
+## Opportunity ranking (excluded corpus, n=486, 292 coded rows)
+| Code | Count | Share | Severity | Prox wt | Score |
+|---|---|---|---|---|---|
+| BLOCK_SIZE_SELECTION | 66 | 22.60% | 3.38 | 1.33 | 101.25 |
+| BLOCK_LISTING_INCOMPLETE | 65 | 22.26% | 2.62 | 1.07 | 62.25 |
+| BLOCK_FABRIC_QUALITY | 31 | 10.62% | 2.74 | 0.90 | 26.29 |
+| BLOCK_STYLING | 22 | 7.53% | 2.77 | 0.89 | 18.52 |
+| BLOCK_DURABILITY_VALUE | 21 | 7.19% | 3.05 | 0.76 | 16.70 |
+
+Full corpus (n=682, 376 coded) figures in
+data/opportunity_scores.csv.
+
+## Sensitivity check on the opportunity formula
+Ranking recomputed on the excluded corpus (n=486) under four
+weighting schemes:
+  A. baseline (0.5 / 1.0 / 1.5)
+  B. proximity ignored (1.0 / 1.0 / 1.0)
+  C. proximity weighted heavily (0.25 / 1.0 / 2.0)
+  D. raw share only
+
+BLOCK_SIZE_SELECTION ranks first under all four schemes.
+BLOCK_SIZE_SELECTION, BLOCK_LISTING_INCOMPLETE and
+BLOCK_FABRIC_QUALITY occupy the top three under all four.
+
+Note: on raw share alone (D), size selection and listing incomplete
+are close — 22.60% vs 22.26%. Severity (3.38 vs 2.62) and proximity
+(1.33 vs 1.07) are what separate them. So the weighting does not
+change which codes matter, but it does widen the gap between first
+and second.
+
+Conclusion: the ranking is not an artefact of the weighting choice.
+
+## Workaround behaviour (excluded corpus)
+
+BLOCK_SIZE_SELECTION, n=66:
+- creator 26 (39.4%), none 8 (12.1%), youtube 1 (1.5%),
+  not stated 31 (47.0%)
+- Of rows where a workaround was stated (n=35): creator 74.3%,
+  none 22.9%, youtube 2.9%
+- role: seeking 64 (97.0%), advising 0
+
+INTENT_GENUINE, n=222 coded rows:
+- creator 80 (36.0%), none 33 (14.9%), youtube 4, friends 4,
+  offline_store 3, reddit 1, not stated 97
+- role: seeking 219 (98.7%)
+
+Interpretation: users blocked on size selection overwhelmingly
+resolve it by asking a person they consider credible, not by
+consulting size charts or measuring themselves. Null values mean the
+workaround was not stated in the comment, not that none exists, so
+the 74.3% figure is computed on rows where a workaround was recorded.
+
 # Files
