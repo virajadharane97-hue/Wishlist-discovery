@@ -163,4 +163,33 @@ should rest on a difference of less than about 3 points between codes.
 - 18 of 682 evidence quotes failed the verbatim substring check and
   were set to null (2.6%).
 
+  ## Classification distributions (v1.2, n=682)
+
+### Workaround
+- creator: 132 (19.4%)
+- none: 137
+- offline_store: 13
+- friends: 8
+- thrift: 8
+- youtube: 7
+- google: 4
+- reddit: 2, tailor: 2, other: 3
+- null: 366
+
+### Role
+- seeking: 461 (67.6%)
+- advising: 203 (29.8%)
+- null: 18
+
+### Information sought
+- size: 124 (37% of rows where a need was identified)
+- styling: 60
+- fabric: 52
+- alternatives: 33
+- fit: 27
+- durability: 18
+- reviews: 9
+- authenticity: 9
+- null: 350
+
 # Files

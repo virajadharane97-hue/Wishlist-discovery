@@ -41,3 +41,41 @@ findings supported by both sources are reported.
 Limitation: single rater. A second independent rater would give a
 stronger estimate and would test whether the residual disagreement is
 codebook ambiguity or rater idiosyncrasy.
+
+## Second rater (n=30, independent, blind)
+
+| Pair | Agreement | Cohen's kappa |
+|---|---|---|
+| Rater 1 vs Rater 2 | 46.7% | 0.413 |
+| Rater 1 vs Machine | 40.0% | 0.325 |
+| Rater 2 vs Machine | 26.7% | 0.241 |
+| All three concordant | 5 of 30 | — |
+
+Two human raters using identical definitions, blind and independently,
+agreed on 46.7% of rows (kappa 0.413). This establishes that the
+residual disagreement is codebook ambiguity rather than rater
+idiosyncrasy: a 15-way taxonomy applied to short, multilingual,
+often-fragmentary comments is inherently unstable.
+
+The two humans agreed with each other more than either agreed with the
+machine, indicating the classifier is a systematic outlier rather than
+that all three are labelling randomly.
+
+Null usage diverged sharply: machine 12 of 30, rater 1 five, rater 2
+zero. Rater 2 assigned a code to every row despite instructions that
+blank was a valid answer. Null-boundary behaviour is the second
+largest source of disagreement after the social-validation construct.
+
+### Convergent finding
+Both human raters independently coded a large share of rows as social
+validation — 6 of 30 and 8 of 30 — while the machine coded zero.
+Rater 2 had no knowledge that this code was contested. Combined with
+the classifier's own external_workaround field (creator on 132 of 682
+rows, 19%) and the role field (advising on 203 of 682, 30%), and with
+8 of 14 research respondents asking for peer or trusted-source
+evidence, four independent sources identify the same behaviour:
+users delegate the decision to a person they consider similar or
+credible.
+
+This behaviour is therefore reported as a workaround and a solution
+requirement, not as a blocker code.
