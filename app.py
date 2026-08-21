@@ -732,18 +732,18 @@ Return a JSON array of objects, one corresponding to each numbered comment (e.g.
                 
                 parsed = json.loads(resp_text)
                 
-                st.subheader("JSON Output")
-                st.json(parsed)
                 show_classification_summary(parsed)
+                with st.expander("Raw classifier output (JSON)", expanded=False):
+                    st.json(parsed)
 
         except Exception as e:
             st.warning("⚠️ The live classifier is currently unavailable (API key missing, quota limit reached, or invalid input). Falling back to a saved example classification.")
             st.subheader("Input Comment Used in Demo Mode:")
             st.write(f"*\"I measured my chest at 40 inches and the size chart says Medium fits 38-40 but Large fits 40-42. Which size should I buy for a slim fit?\"*")
             st.divider()
-            st.subheader("JSON Output")
-            st.json(fallback_json)
             show_classification_summary(fallback_json)
+            with st.expander("Raw classifier output (JSON)", expanded=False):
+                st.json(fallback_json)
 
 # ==========================================
 # TAB 4 — HOW IT WORKS
