@@ -1,9 +1,9 @@
 google-play-scraper
 pandas
-anthropic
 streamlit
 plotly
 scikit-learn
 python-dotenv
 google-api-python-client
+google-genai
 pyarrow<25
