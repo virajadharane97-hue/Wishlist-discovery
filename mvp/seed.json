@@ -1,0 +1,1676 @@
+{
+  "_disclaimer": "SYNTHETIC DEMO DATA. Products, brands, prices, reviews and purchase records are invented for prototype demonstration. Not affiliated with Myntra or any brand named. Reviewer height, use context and ownership duration are structured fields that real review systems do not collect; their absence is the problem this prototype addresses.",
+  "demo_user": {
+    "name": "Demo user",
+    "height_cm": 157,
+    "usual_size_top": "M",
+    "usual_size_bottom": "M",
+    "usual_size_shoe": "UK6",
+    "build": "average",
+    "laptop_size_inches": null,
+    "activity": null
+  },
+  "products": [
+    {
+      "id": "p01",
+      "name": "Olive wide-leg high-waist trousers",
+      "brand": "Anouk",
+      "category": "apparel_bottom",
+      "price": 1699,
+      "colour_block": "#6B7C3A",
+      "match_attribute": "height",
+      "blocking_question": "Will the length work on me at 5'2\", or will I need it altered?",
+      "size_chart": {
+        "S": {
+          "waist_in": 28,
+          "hip_in": 36,
+          "inseam_in": 30
+        },
+        "M": {
+          "waist_in": 30,
+          "hip_in": 38,
+          "inseam_in": 30
+        },
+        "L": {
+          "waist_in": 32,
+          "hip_in": 40,
+          "inseam_in": 30
+        }
+      },
+      "demo_case": "path_1",
+      "reviews": [
+        {
+          "text": "I'm 5'2 and the length was perfect without altering, sits right at the ankle.",
+          "rating": 5,
+          "reviewer_height_cm": 157,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "At 5'3 these needed about an inch taken off, wearable with heels otherwise.",
+          "rating": 4,
+          "reviewer_height_cm": 160,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Fabric is thicker than expected which is good, holds shape.",
+          "rating": 4,
+          "reviewer_height_cm": 168,
+          "reviewer_size": "L",
+          "months_owned": 3,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Waist runs slightly small, I sized up.",
+          "rating": 3,
+          "reviewer_height_cm": 165,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Colour is exactly as shown. Very happy.",
+          "rating": 5,
+          "reviewer_height_cm": 170,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Too long on me but I'm short so expected that.",
+          "rating": 3,
+          "reviewer_height_cm": 152,
+          "reviewer_size": "S",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good for office. Comfortable all day.",
+          "rating": 4,
+          "reviewer_height_cm": 163,
+          "reviewer_size": "M",
+          "months_owned": 4,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Delivery was quick, packaging fine.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "name": "Blue oversized cotton T-shirt",
+      "brand": "Roadster",
+      "category": "apparel_top",
+      "price": 599,
+      "colour_block": "#3B6EA5",
+      "match_attribute": "height",
+      "blocking_question": "Will the fabric stay soft after a few washes or lose its shape?",
+      "size_chart": {
+        "M": {
+          "chest_in": 40
+        },
+        "L": {
+          "chest_in": 42
+        },
+        "XL": {
+          "chest_in": 44
+        }
+      },
+      "demo_case": "path_2",
+      "reviews": [
+        {
+          "text": "Washed it six times now, no shrinking and the shape held.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 5,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Three months in, still soft. Colour faded very slightly.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 3,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "After four washes the neckline is still fine, no stretching.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 4,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Comfortable, exactly the oversized fit I wanted.",
+          "rating": 5,
+          "reviewer_height_cm": 172,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Bit see-through in bright light but fine indoors.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good value at this price.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "name": "Rust corduroy boxy overshirt",
+      "brand": "Independent label",
+      "category": "apparel_top",
+      "price": 3200,
+      "colour_block": "#A15B34",
+      "match_attribute": "height",
+      "blocking_question": "If I'm normally an M, what would I be in this brand?",
+      "size_chart": null,
+      "demo_case": "path_3",
+      "reviews": [],
+      "purchase_data": {
+        "kept_purchases": [
+          {
+            "height_cm": 156,
+            "size": "L"
+          },
+          {
+            "height_cm": 157,
+            "size": "L"
+          },
+          {
+            "height_cm": 158,
+            "size": "L"
+          },
+          {
+            "height_cm": 155,
+            "size": "L"
+          },
+          {
+            "height_cm": 157,
+            "size": "M"
+          },
+          {
+            "height_cm": 158,
+            "size": "L"
+          },
+          {
+            "height_cm": 156,
+            "size": "L"
+          },
+          {
+            "height_cm": 159,
+            "size": "L"
+          },
+          {
+            "height_cm": 155,
+            "size": "M"
+          },
+          {
+            "height_cm": 157,
+            "size": "L"
+          },
+          {
+            "height_cm": 158,
+            "size": "L"
+          },
+          {
+            "height_cm": 156,
+            "size": "L"
+          },
+          {
+            "height_cm": 159,
+            "size": "L"
+          },
+          {
+            "height_cm": 157,
+            "size": "L"
+          },
+          {
+            "height_cm": 155,
+            "size": "L"
+          },
+          {
+            "height_cm": 158,
+            "size": "M"
+          },
+          {
+            "height_cm": 156,
+            "size": "L"
+          },
+          {
+            "height_cm": 157,
+            "size": "L"
+          },
+          {
+            "height_cm": 170,
+            "size": "L"
+          },
+          {
+            "height_cm": 172,
+            "size": "XL"
+          },
+          {
+            "height_cm": 168,
+            "size": "L"
+          },
+          {
+            "height_cm": 175,
+            "size": "XL"
+          },
+          {
+            "height_cm": 165,
+            "size": "L"
+          }
+        ],
+        "returned_purchases": [
+          {
+            "height_cm": 157,
+            "size": "M"
+          },
+          {
+            "height_cm": 156,
+            "size": "M"
+          },
+          {
+            "height_cm": 158,
+            "size": "M"
+          }
+        ]
+      }
+    },
+    {
+      "id": "p04",
+      "name": "Black straight-fit cargo pants",
+      "brand": "Myntra label",
+      "category": "apparel_bottom",
+      "price": 1599,
+      "colour_block": "#2B2B2B",
+      "match_attribute": "height",
+      "blocking_question": "Will these fit around the waist and thighs, or should I size up?",
+      "size_chart": {
+        "M": {
+          "waist_in": 30,
+          "hip_in": 38
+        },
+        "L": {
+          "waist_in": 32,
+          "hip_in": 40
+        }
+      },
+      "demo_case": "path_4",
+      "reviews": [
+        {
+          "text": "Runs small, I sized up and it was right.",
+          "rating": 4,
+          "reviewer_height_cm": 170,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Definitely size up, the waist is tight.",
+          "rating": 3,
+          "reviewer_height_cm": 173,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "I went one size larger based on other reviews, good decision.",
+          "rating": 4,
+          "reviewer_height_cm": 168,
+          "reviewer_size": "L",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Thigh area is snug if you have muscular legs.",
+          "rating": 3,
+          "reviewer_height_cm": 175,
+          "reviewer_size": "XL",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Length was good on me, I'm on the taller side.",
+          "rating": 4,
+          "reviewer_height_cm": 172,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Fabric quality is decent for the price.",
+          "rating": 4,
+          "reviewer_height_cm": 169,
+          "reviewer_size": "L",
+          "months_owned": 3,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Nice colour, true black not washed out.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "name": "Chocolate satin midi dress",
+      "brand": "Instagram brand",
+      "category": "apparel_top",
+      "price": 2450,
+      "colour_block": "#5C4033",
+      "match_attribute": "height",
+      "blocking_question": "Does it look and fit like it does in the brand's video?",
+      "size_chart": null,
+      "demo_case": "no_evidence",
+      "reviews": []
+    },
+    {
+      "id": "p06",
+      "name": "Tan leather tote bag",
+      "brand": "Hidesign",
+      "category": "bag",
+      "price": 8900,
+      "colour_block": "#B4794A",
+      "match_attribute": "laptop_size_inches",
+      "blocking_question": "Will a 14-inch laptop fit flat inside without forcing it?",
+      "size_chart": {
+        "one_size": {
+          "external_w_cm": 38,
+          "external_h_cm": 30,
+          "external_d_cm": 12
+        }
+      },
+      "demo_case": "answered_buyer_question",
+      "buyer_questions": [
+        {
+          "question": "Will a 14-inch MacBook fit flat inside?",
+          "answer": "Yes, mine goes in flat. Slightly snug at the corners but no forcing.",
+          "answered_by": "Verified buyer, owned 7 months",
+          "answered_days_ago": 3
+        }
+      ],
+      "reviews": [
+        {
+          "text": "Beautiful bag, looks premium in person.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Leather has softened nicely over six months.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 6,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Straps are comfortable even when full.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 4,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Colour is slightly darker than the photos.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "name": "Dark green running shoes",
+      "brand": "Asics",
+      "category": "footwear",
+      "price": 3800,
+      "colour_block": "#2E5D4B",
+      "match_attribute": "activity",
+      "blocking_question": "Are these comfortable for long walks and light running, or mainly casual?",
+      "size_chart": {
+        "UK5": {
+          "cm": 23
+        },
+        "UK6": {
+          "cm": 24
+        },
+        "UK7": {
+          "cm": 25
+        }
+      },
+      "demo_case": "path_1_use",
+      "reviews": [
+        {
+          "text": "I walk 5km daily in these, no complaints after four months.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK6",
+          "months_owned": 4,
+          "reviewer_use": "daily walking",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Used them for light jogging twice a week, cushioning holds up.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK7",
+          "months_owned": 3,
+          "reviewer_use": "light running",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Bought for the gym, fine for treadmill but not for lifting.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK8",
+          "months_owned": 2,
+          "reviewer_use": "gym",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Mainly wear them casually, very comfortable.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK6",
+          "months_owned": 1,
+          "reviewer_use": "casual",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Sole started wearing after two months of running.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK9",
+          "months_owned": 2,
+          "reviewer_use": "running",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Sizing is true, no need to size up.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK6",
+          "months_owned": 1,
+          "reviewer_use": "casual",
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "name": "Grey baggy cargo pants",
+      "brand": "Meesho seller",
+      "category": "apparel_bottom",
+      "price": 649,
+      "colour_block": "#7E8287",
+      "match_attribute": "height",
+      "blocking_question": "Is the fabric the thin shiny type or actual cotton canvas?",
+      "size_chart": {
+        "M": {
+          "waist_in": 30
+        },
+        "L": {
+          "waist_in": 32
+        }
+      },
+      "demo_case": "thin_reviews",
+      "reviews": [
+        {
+          "text": "ok",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "received",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": true
+        },
+        {
+          "text": "nice",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": true
+        },
+        {
+          "text": "Fabric is a bit shiny, not what I expected from the photos.",
+          "rating": 2,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "name": "Maroon Anarkali kurta set with gota work",
+      "brand": "Libas",
+      "category": "apparel_top",
+      "price": 4299,
+      "colour_block": "#7B2D3B",
+      "match_attribute": "use",
+      "blocking_question": "Will the inner lining make this too hot for a 4-hour afternoon function?",
+      "size_chart": {
+        "M": {
+          "bust_in": 38
+        },
+        "L": {
+          "bust_in": 40
+        }
+      },
+      "demo_case": "path_4_use",
+      "reviews": [
+        {
+          "text": "Gorgeous, the gota work is delicate and well done.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Wore it to an evening reception, lots of compliments.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": "evening event",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Colour is rich, exactly as shown.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Slightly long, I had it hemmed.",
+          "rating": 4,
+          "reviewer_height_cm": 155,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "The dupatta is thinner than expected.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good quality stitching for the price.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Fits well, no alterations needed.",
+          "rating": 4,
+          "reviewer_height_cm": 165,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Beautiful for festive occasions.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Lining is soft, comfortable to wear.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Packaging was lovely, felt premium.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Would buy again in another colour.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "name": "Pastel green embroidered kurta set",
+      "brand": "W",
+      "category": "apparel_top",
+      "price": 2400,
+      "colour_block": "#A8C3A0",
+      "match_attribute": "height",
+      "blocking_question": "Is the actual colour the same as in the pictures?",
+      "size_chart": null,
+      "demo_case": "path_2",
+      "reviews": [
+        {
+          "text": "Colour is slightly more mint than the photo shows.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Embroidery looks good in person, better than expected.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Lighting in the listing makes it look brighter.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "True to the photos on my screen.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Fabric is comfortable for summer.",
+          "rating": 4,
+          "reviewer_height_cm": 162,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "name": "Linen saree, natural beige",
+      "brand": "Fabindia",
+      "category": "apparel_top",
+      "price": 1200,
+      "colour_block": "#D8CBB3",
+      "match_attribute": "use",
+      "blocking_question": "Will linen be comfortable in humid weather?",
+      "size_chart": null,
+      "demo_case": "path_2",
+      "reviews": [
+        {
+          "text": "Wore it through a Chennai summer, breathable throughout.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 3,
+          "reviewer_use": "summer daily",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Creases quickly but that is linen.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Light and easy to drape.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Needed starching to hold shape.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "name": "Red three-piece suit set",
+      "brand": "Anouk",
+      "category": "apparel_top",
+      "price": 1324,
+      "colour_block": "#9B2226",
+      "match_attribute": "height",
+      "blocking_question": "Will the shoulders be too tight at my size?",
+      "size_chart": null,
+      "demo_case": "path_1",
+      "reviews": [
+        {
+          "text": "I'm 5'2 and the M fitted well across the shoulders.",
+          "rating": 5,
+          "reviewer_height_cm": 157,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "At 5'1 the length was slightly long.",
+          "rating": 4,
+          "reviewer_height_cm": 155,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Shoulders run narrow, size up if broad.",
+          "rating": 3,
+          "reviewer_height_cm": 168,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good fit overall, comfortable.",
+          "rating": 4,
+          "reviewer_height_cm": 160,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Colour is deeper than shown.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p13",
+      "name": "Black structured shoulder bag",
+      "brand": "Independent brand",
+      "category": "bag",
+      "price": 4200,
+      "colour_block": "#1F1F1F",
+      "match_attribute": "laptop_size_inches",
+      "blocking_question": "Will it hold up well with daily use?",
+      "size_chart": null,
+      "demo_case": "path_2",
+      "reviews": [
+        {
+          "text": "Eight months of daily commuting, corners are wearing slightly.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 8,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Six months in and still looks new.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 6,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Structure held up better than I expected.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 5,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Hardware started tarnishing after three months.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 3,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Looks professional, good for office.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p14",
+      "name": "Asics running shoes, current model",
+      "brand": "Asics",
+      "category": "footwear",
+      "price": 4500,
+      "colour_block": "#4A5D75",
+      "match_attribute": "activity",
+      "blocking_question": "Is this the same model as last year or did the sole change?",
+      "size_chart": null,
+      "demo_case": "no_evidence",
+      "reviews": [
+        {
+          "text": "Comfortable, no issues.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK8",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good grip.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK7",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p15",
+      "name": "White fitted crew-neck tee",
+      "brand": "Uniqlo",
+      "category": "apparel_top",
+      "price": 790,
+      "colour_block": "#F2F2F2",
+      "match_attribute": "height",
+      "blocking_question": "Is it see-through?",
+      "size_chart": null,
+      "demo_case": "path_2",
+      "reviews": [
+        {
+          "text": "Slightly sheer in direct sunlight, fine otherwise.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Not see-through at all for me.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Thin fabric, I wear a camisole under it.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Held shape after many washes.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 6,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good basic, would rebuy.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 3,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p16",
+      "name": "Wide-leg denim jeans, mid blue",
+      "brand": "Levis",
+      "category": "apparel_bottom",
+      "price": 2999,
+      "colour_block": "#4A6382",
+      "match_attribute": "height",
+      "blocking_question": "How much length will I lose if I hem them at 5'2\"?",
+      "size_chart": null,
+      "demo_case": "path_1",
+      "reviews": [
+        {
+          "text": "I'm 5'2 and took off two inches, sits perfectly now.",
+          "rating": 5,
+          "reviewer_height_cm": 157,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "At 5'3 I hemmed one and a half inches.",
+          "rating": 4,
+          "reviewer_height_cm": 160,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "No alteration needed at 5'8.",
+          "rating": 5,
+          "reviewer_height_cm": 173,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Denim is stiff at first, softens after two washes.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 3,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "True to size at the waist.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Colour bled slightly in the first wash.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p17",
+      "name": "Cotton palazzo trousers, mustard",
+      "brand": "W",
+      "category": "apparel_bottom",
+      "price": 1099,
+      "colour_block": "#C99A2E",
+      "match_attribute": "height",
+      "blocking_question": "Are they too wide at the ankle for someone short?",
+      "size_chart": null,
+      "demo_case": "path_4",
+      "reviews": [
+        {
+          "text": "Very flowy, I like the drape. I'm 5'7.",
+          "rating": 5,
+          "reviewer_height_cm": 170,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "At 5'8 these are elegant.",
+          "rating": 5,
+          "reviewer_height_cm": 173,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Wide but manageable, I'm 5'9.",
+          "rating": 4,
+          "reviewer_height_cm": 175,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Nice fabric for summer.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p18",
+      "name": "Faux-leather crossbody bag",
+      "brand": "Accessorize",
+      "category": "bag",
+      "price": 1899,
+      "colour_block": "#3A2E28",
+      "match_attribute": "laptop_size_inches",
+      "blocking_question": "Will an A5 notebook and a water bottle both fit?",
+      "size_chart": null,
+      "demo_case": "no_evidence",
+      "reviews": [
+        {
+          "text": "Cute bag, good for evenings.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Strap is adjustable which helps.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p19",
+      "name": "Chunky knit cardigan, oatmeal",
+      "brand": "H&M",
+      "category": "apparel_top",
+      "price": 2199,
+      "colour_block": "#D6C7AC",
+      "match_attribute": "height",
+      "blocking_question": "Does it pill after washing?",
+      "size_chart": null,
+      "demo_case": "path_2",
+      "reviews": [
+        {
+          "text": "Pilled under the arms after four washes.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 4,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Five months in, minor pilling but acceptable.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 5,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "No pilling at all, I hand wash.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 3,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Warm and soft, good for Delhi winter.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Sleeves are long, I'm 5'3.",
+          "rating": 4,
+          "reviewer_height_cm": 160,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p20",
+      "name": "Pleated midi skirt, navy",
+      "brand": "Vero Moda",
+      "category": "apparel_bottom",
+      "price": 1799,
+      "colour_block": "#25344F",
+      "match_attribute": "height",
+      "blocking_question": "Where will it fall on me at 5'2\"?",
+      "size_chart": null,
+      "demo_case": "path_1",
+      "reviews": [
+        {
+          "text": "Hits mid-calf on me, I'm 5'2.",
+          "rating": 4,
+          "reviewer_height_cm": 157,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Below the knee at 5'4.",
+          "rating": 5,
+          "reviewer_height_cm": 163,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Just above the ankle at 5'0.",
+          "rating": 4,
+          "reviewer_height_cm": 152,
+          "reviewer_size": "S",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Pleats hold well after washing.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 3,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Waistband is comfortable.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p21",
+      "name": "Canvas sneakers, off-white",
+      "brand": "Converse",
+      "category": "footwear",
+      "price": 3299,
+      "colour_block": "#EDE8DC",
+      "match_attribute": "activity",
+      "blocking_question": "Do they hurt on long walking days?",
+      "size_chart": null,
+      "demo_case": "path_1_use",
+      "reviews": [
+        {
+          "text": "Walked around Rome for a week, no blisters.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK6",
+          "months_owned": 2,
+          "reviewer_use": "long walking",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Fine for short trips, sore after 10km.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK7",
+          "months_owned": 1,
+          "reviewer_use": "long walking",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good for daily college wear.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK5",
+          "months_owned": 4,
+          "reviewer_use": "casual",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Needed a week to break in.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK6",
+          "months_owned": 1,
+          "reviewer_use": "casual",
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p22",
+      "name": "Ribbed bodycon dress, black",
+      "brand": "Zara",
+      "category": "apparel_top",
+      "price": 2590,
+      "colour_block": "#1A1A1A",
+      "match_attribute": "build",
+      "blocking_question": "Is the ribbing forgiving or does it cling?",
+      "size_chart": null,
+      "demo_case": "path_4",
+      "reviews": [
+        {
+          "text": "Clings but in a flattering way, I'm slim.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "S",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Very stretchy, comfortable.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Shows every line, size up if unsure.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good quality ribbing, thick fabric.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "S",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p23",
+      "name": "Formal shirt, light blue",
+      "brand": "Van Heusen",
+      "category": "apparel_top",
+      "price": 1499,
+      "colour_block": "#A9C4DA",
+      "match_attribute": "height",
+      "blocking_question": "Are the sleeves long enough for someone tall?",
+      "size_chart": null,
+      "demo_case": "path_4",
+      "reviews": [
+        {
+          "text": "Sleeves are fine at 5'6.",
+          "rating": 4,
+          "reviewer_height_cm": 168,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Good fit at 5'5.",
+          "rating": 4,
+          "reviewer_height_cm": 165,
+          "reviewer_size": "M",
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Collar is well structured.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "L",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Wrinkles easily, needs ironing.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "M",
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p24",
+      "name": "Silk-blend scarf, teal print",
+      "brand": "Fabindia",
+      "category": "apparel_top",
+      "price": 899,
+      "colour_block": "#1F6E6E",
+      "match_attribute": "use",
+      "blocking_question": "Is the print as vivid in person?",
+      "size_chart": null,
+      "demo_case": "path_2",
+      "reviews": [
+        {
+          "text": "More muted than the photo but still lovely.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Print is accurate on my screen.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 1,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Silk feels good, drapes nicely.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": null,
+          "months_owned": 2,
+          "reviewer_use": null,
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    },
+    {
+      "id": "p25",
+      "name": "Block-heel sandals, tan",
+      "brand": "Metro",
+      "category": "footwear",
+      "price": 2199,
+      "colour_block": "#C08552",
+      "match_attribute": "activity",
+      "blocking_question": "Can I stand in these for a four-hour function?",
+      "size_chart": null,
+      "demo_case": "path_1_use",
+      "reviews": [
+        {
+          "text": "Stood through a whole wedding, feet were fine.",
+          "rating": 5,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK6",
+          "months_owned": 1,
+          "reviewer_use": "long standing event",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Comfortable for three hours, then sore.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK7",
+          "months_owned": 2,
+          "reviewer_use": "long standing event",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Heel height is manageable.",
+          "rating": 4,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK5",
+          "months_owned": 1,
+          "reviewer_use": "casual",
+          "kept": true,
+          "packet_photo_only": false
+        },
+        {
+          "text": "Strap rubbed on the first wear.",
+          "rating": 3,
+          "reviewer_height_cm": null,
+          "reviewer_size": "UK6",
+          "months_owned": 1,
+          "reviewer_use": "casual",
+          "kept": true,
+          "packet_photo_only": false
+        }
+      ]
+    }
+  ]
+}
